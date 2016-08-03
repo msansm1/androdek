@@ -1,4 +1,4 @@
-package bzh.msansm1.androdek;
+package bzh.msansm1.androdek.login;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -31,6 +31,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import bzh.msansm1.androdek.R;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
