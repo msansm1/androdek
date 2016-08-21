@@ -25,7 +25,7 @@ public class MediaActivity extends MedekActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_album);
+        setContentView(R.layout.activity_media);
 
         ButterKnife.bind(this);
 
