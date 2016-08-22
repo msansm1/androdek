@@ -1,11 +1,15 @@
 package bzh.msansm1.androdek.media.movie;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import bzh.msansm1.androdek.R;
 
 /**
@@ -13,12 +17,26 @@ import bzh.msansm1.androdek.R;
  */
 public class MovieFragment extends Fragment {
 
+    @BindView(R.id.add_movie)
+    FloatingActionButton addMovie;
+
     public MovieFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_movie, container, false);
+        View view = inflater.inflate(R.layout.fragment_movie, container, false);
+        ButterKnife.bind(this,view);
+
+        addMovie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Add Movie", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
+        return view;
     }
 }
