@@ -3,6 +3,7 @@ package bzh.msansm1.androdek.login;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -52,16 +53,21 @@ public class LoginActivity extends MedekActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
+
         RealmResults<MedekConfig> conf = realm.where(MedekConfig.class).findAll();
         if (!conf.isEmpty()) {
             if (conf.first().getToken() != null) {
-                startActivity(HomeActivity.getIntent(LoginActivity.this));
+                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                Bundle b = new Bundle();
+                b.putString("token", conf.first().getToken());
+                intent.putExtras(b);
+                startActivity(intent);
             }
         }
 
-        setContentView(R.layout.activity_login);
-
-        ButterKnife.bind(this);
+        finish();
     }
 
     @OnClick(R.id.login_button)

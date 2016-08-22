@@ -3,6 +3,7 @@ package bzh.msansm1.medekapi;
 import bzh.msansm1.androdek.persistence.MedekConfig;
 import bzh.msansm1.medekapi.json.auth.JsonAuth;
 import bzh.msansm1.medekapi.json.auth.JsonLogin;
+import bzh.msansm1.medekapi.json.home.JsonCollectionStats;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -44,6 +45,18 @@ public class MedekApi {
 
     public void login(JsonLogin loginInfos, RetrofitManager.MedekCallBack<JsonAuth> callback){
         medekService.login(loginInfos,callback);
+    }
+
+    public void logout(JsonAuth userInfos, RetrofitManager.MedekCallBack<String> callback){
+        medekService.logout(userInfos, callback);
+    }
+
+    public void getMyCollection(String token, RetrofitManager.MedekCallBack<JsonCollectionStats> callback){
+        medekService.getMyCollection(token, callback);
+    }
+
+    public void getMyCollection(RetrofitManager.MedekCallBack<JsonCollectionStats> callback){
+        medekService.getMyCollection(callback);
     }
 
 }

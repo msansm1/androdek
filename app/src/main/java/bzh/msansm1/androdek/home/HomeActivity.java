@@ -32,6 +32,12 @@ public class HomeActivity extends MedekActivity {
 
         setSupportActionBar(toolbar);
 
+        Bundle b = getIntent().getExtras();
+        String token;
+        if(b != null) {
+            token = b.getString("token");
+        }
+
     }
 
 }
