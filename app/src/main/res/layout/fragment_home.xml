@@ -5,7 +5,7 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingTop="60dp"
     tools:showIn="@layout/activity_home"
     android:orientation="vertical">
 
@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/my_collec"
                 android:textColor="@color/white"
-                android:padding="16dp"
+                android:padding="12dp"
                 android:layout_weight="1"
                 android:gravity="center"/>
 
@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/my_collec_albums"
                 android:textColor="@color/white"
-                android:padding="16dp"
+                android:padding="12dp"
                 android:layout_weight="1"/>
 
             <TextView
@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:padding="16dp"
+                android:padding="12dp"
                 android:gravity="end"
                 android:layout_weight="1"/>
 
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/my_collec_books"
                 android:textColor="@color/white"
-                android:padding="16dp"
+                android:padding="12dp"
                 android:layout_weight="1"/>
 
             <TextView
@@ -70,7 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:padding="16dp"
+                android:padding="12dp"
                 android:gravity="end"
                 android:layout_weight="1"/>
 
@@ -85,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/my_collec_movies"
                 android:textColor="@color/white"
-                android:padding="16dp"
+                android:padding="12dp"
                 android:layout_weight="1"/>
 
             <TextView
@@ -93,7 +93,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:padding="16dp"
+                android:padding="12dp"
                 android:gravity="end"
                 android:layout_weight="1"/>
 
@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/my_collec_tvshows"
                 android:textColor="@color/white"
-                android:padding="16dp"
+                android:padding="12dp"
                 android:layout_weight="1"/>
 
             <TextView
@@ -116,7 +116,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:padding="16dp"
+                android:padding="12dp"
                 android:gravity="end"
                 android:layout_weight="1"/>
 
@@ -139,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/all_collec"
                 android:textColor="@color/white"
-                android:padding="16dp"
+                android:padding="12dp"
                 android:layout_weight="1"
                 android:gravity="center"/>
 
@@ -154,7 +154,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/all_collec_albums"
                 android:textColor="@color/white"
-                android:padding="16dp"
+                android:padding="12dp"
                 android:layout_weight="1"/>
 
             <TextView
@@ -162,7 +162,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:padding="16dp"
+                android:padding="12dp"
                 android:gravity="end"
                 android:layout_weight="1"/>
 
@@ -177,7 +177,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/all_collec_books"
                 android:textColor="@color/white"
-                android:padding="16dp"
+                android:padding="12dp"
                 android:layout_weight="1"/>
 
             <TextView
@@ -185,7 +185,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:padding="16dp"
+                android:padding="12dp"
                 android:gravity="end"
                 android:layout_weight="1"/>
 
@@ -200,7 +200,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/all_collec_movies"
                 android:textColor="@color/white"
-                android:padding="16dp"
+                android:padding="12dp"
                 android:layout_weight="1"/>
 
             <TextView
@@ -208,7 +208,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:padding="16dp"
+                android:padding="12dp"
                 android:gravity="end"
                 android:layout_weight="1"/>
 
@@ -223,7 +223,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/all_collec_tvshows"
                 android:textColor="@color/white"
-                android:padding="16dp"
+                android:padding="12dp"
                 android:layout_weight="1"/>
 
             <TextView
@@ -231,7 +231,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:padding="16dp"
+                android:padding="12dp"
                 android:gravity="end"
                 android:layout_weight="1"/>
 

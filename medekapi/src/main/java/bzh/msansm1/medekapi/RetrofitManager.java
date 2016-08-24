@@ -107,6 +107,7 @@ public class RetrofitManager {
     }
 
     public void getMyCollection(final String token, final MedekCallBack cb){
+
         // set token
         final okhttp3.OkHttpClient.Builder httpClient = new okhttp3.OkHttpClient.Builder()
                 .readTimeout(20, TimeUnit.SECONDS)
@@ -135,6 +136,8 @@ public class RetrofitManager {
             public void onResponse(Call<JsonCollectionStats> call, Response<JsonCollectionStats> response) {
                 if (response.isSuccessful()) {
                     cb.success(response.body());
+                } else if (response.code() == 401) {
+                    cb.failure(new JsonError("Authentication failed", "Error"));
                 } else {
                     cb.failure(new JsonError("Get collection failed", "Error"));
                 }

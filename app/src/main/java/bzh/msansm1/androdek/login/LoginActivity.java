@@ -3,9 +3,11 @@ package bzh.msansm1.androdek.login;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.AsyncTask;
@@ -22,6 +24,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,6 +53,10 @@ public class LoginActivity extends MedekActivity {
     @BindView(R.id.password)
     EditText passwordText;
 
+    public static Intent getIntent(Context ctx){
+        return  new Intent(ctx,LoginActivity.class);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,35 +71,39 @@ public class LoginActivity extends MedekActivity {
                 b.putString("token", conf.first().getToken());
                 intent.putExtras(b);
                 startActivity(intent);
+                finish();
             }
         }
-
-        finish();
     }
 
     @OnClick(R.id.login_button)
     protected void login() {
-        MedekApi.getInstance().login(new JsonLogin(loginText.getText().toString(),
-                passwordText.getText().toString()), new RetrofitManager.MedekCallBack<JsonAuth>() {
-            @Override
-            public void success(JsonAuth jsonAuth) {
-                realm.beginTransaction();
-                RealmResults<MedekConfig> conf = realm.where(MedekConfig.class).findAll();
-                if (!conf.isEmpty()) {
-                    conf.first().setToken(jsonAuth.getToken());
-                } else {
-                    MedekConfig config = realm.createObject(MedekConfig.class);
-                    config.setToken(jsonAuth.getToken());
+        RealmResults<MedekConfig> cfg = realm.where(MedekConfig.class).findAll();
+        if (cfg.isEmpty()) {
+            Toast.makeText(getBaseContext(), "Configure API URL", Toast.LENGTH_SHORT).show();
+        } else {
+            MedekApi.getInstance().login(new JsonLogin(loginText.getText().toString(),
+                    passwordText.getText().toString()), new RetrofitManager.MedekCallBack<JsonAuth>() {
+                @Override
+                public void success(JsonAuth jsonAuth) {
+                    realm.beginTransaction();
+                    RealmResults<MedekConfig> conf = realm.where(MedekConfig.class).findAll();
+                    if (!conf.isEmpty()) {
+                        conf.first().setToken(jsonAuth.getToken());
+                    } else {
+                        MedekConfig config = realm.createObject(MedekConfig.class);
+                        config.setToken(jsonAuth.getToken());
+                    }
+                    realm.commitTransaction();
+                    startActivity(HomeActivity.getIntent(LoginActivity.this));
                 }
-                realm.commitTransaction();
-                startActivity(HomeActivity.getIntent(LoginActivity.this));
-            }
 
-            @Override
-            public void failure(JsonError error) {
-
-            }
-        });
+                @Override
+                public void failure(JsonError error) {
+                    Toast.makeText(getBaseContext(), "Authentication failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     @OnClick(R.id.ico_config)

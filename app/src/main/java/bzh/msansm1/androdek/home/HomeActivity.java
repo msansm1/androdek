@@ -33,11 +33,11 @@ public class HomeActivity extends MedekActivity {
         setSupportActionBar(toolbar);
 
         Bundle b = getIntent().getExtras();
-        String token;
         if(b != null) {
-            token = b.getString("token");
+            getSupportFragmentManager().beginTransaction().replace(R.id.homeFragment, HomeFragment.getFragment(b.getString("token"))).commit();
+        } else {
+            getSupportFragmentManager().beginTransaction().replace(R.id.homeFragment, HomeFragment.getFragment()).commit();
         }
-
     }
 
 }
