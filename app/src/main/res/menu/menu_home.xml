@@ -2,9 +2,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="bzh.msansm1.androdek.home.HomeActivity">
+
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:id="@+id/action_albums"
+        android:title="@string/albums"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_books"
+        android:title="@string/books"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_movies"
+        android:title="@string/movies"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_tvshows"
+        android:title="@string/tvshows"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_friends"
+        android:title="@string/friends"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_loans"
+        android:title="@string/loans"
+        app:showAsAction="never" />
+
 </menu>

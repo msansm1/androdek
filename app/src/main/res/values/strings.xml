@@ -12,6 +12,12 @@
     <string name="config_save">Save</string>
 
     <string name="title_activity_home">HomeActivity</string>
+    <string name="albums">Albums</string>
+    <string name="books">Books</string>
+    <string name="movies">Movies</string>
+    <string name="tvshows">TV Shows</string>
+    <string name="friends">Friends</string>
+    <string name="loans">Loans</string>
     <string name="my_collec">My collection</string>
     <string name="my_collec_albums">Albums</string>
     <string name="my_collec_books">Books</string>
