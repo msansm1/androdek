@@ -33,6 +33,7 @@ import bzh.msansm1.androdek.R;
 import bzh.msansm1.androdek.config.ConfigActivity;
 import bzh.msansm1.androdek.home.HomeActivity;
 import bzh.msansm1.androdek.persistence.MedekConfig;
+import bzh.msansm1.androdek.utils.Constants;
 import bzh.msansm1.androdek.utils.MedekActivity;
 import bzh.msansm1.medekapi.MedekApi;
 import bzh.msansm1.medekapi.RetrofitManager;
@@ -68,7 +69,7 @@ public class LoginActivity extends MedekActivity {
             if (conf.first().getToken() != null) {
                 Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                 Bundle b = new Bundle();
-                b.putString("token", conf.first().getToken());
+                b.putString(Constants.KEY_TOKEN, conf.first().getToken());
                 intent.putExtras(b);
                 startActivity(intent);
                 finish();

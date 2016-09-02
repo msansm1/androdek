@@ -23,6 +23,10 @@ public class TvshowFragment extends Fragment {
     public TvshowFragment() {
     }
 
+    public static TvshowFragment getFragment(){
+        return new TvshowFragment();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -23,6 +23,10 @@ public class BookFragment extends Fragment {
     public BookFragment() {
     }
 
+    public static BookFragment getFragment(){
+        return new BookFragment();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

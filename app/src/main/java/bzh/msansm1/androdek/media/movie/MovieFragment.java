@@ -23,6 +23,10 @@ public class MovieFragment extends Fragment {
     public MovieFragment() {
     }
 
+    public static MovieFragment getFragment(){
+        return new MovieFragment();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

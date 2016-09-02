@@ -23,6 +23,10 @@ public class AlbumFragment extends Fragment {
     public AlbumFragment() {
     }
 
+    public static AlbumFragment getFragment(){
+        return new AlbumFragment();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

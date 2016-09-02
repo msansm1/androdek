@@ -17,6 +17,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import bzh.msansm1.androdek.R;
+import bzh.msansm1.androdek.media.MediaActivity;
+import bzh.msansm1.androdek.utils.Constants;
 import bzh.msansm1.androdek.utils.MedekActivity;
 
 public class HomeActivity extends MedekActivity {
@@ -39,7 +41,7 @@ public class HomeActivity extends MedekActivity {
 
         Bundle b = getIntent().getExtras();
         if(b != null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.homeFragment, HomeFragment.getFragment(b.getString("token"))).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.homeFragment, HomeFragment.getFragment(b.getString(Constants.KEY_TOKEN))).commit();
         } else {
             getSupportFragmentManager().beginTransaction().replace(R.id.homeFragment, HomeFragment.getFragment()).commit();
         }
@@ -54,7 +56,6 @@ public class HomeActivity extends MedekActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
         switch (item.getItemId()) {
             case R.id.action_albums:
                 onAlbumsClick();
@@ -81,19 +82,35 @@ public class HomeActivity extends MedekActivity {
 
 
     protected void onAlbumsClick() {
-        Toast.makeText(getBaseContext(), "Albums", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(HomeActivity.this, MediaActivity.class);
+        Bundle b = new Bundle();
+        b.putString(Constants.KEY_MEDIA, Constants.MEDIA_ALBUM);
+        intent.putExtras(b);
+        startActivity(intent);
     }
 
     protected void onBooksClick() {
-        Toast.makeText(getBaseContext(), "Books", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(HomeActivity.this, MediaActivity.class);
+        Bundle b = new Bundle();
+        b.putString(Constants.KEY_MEDIA, Constants.MEDIA_BOOK);
+        intent.putExtras(b);
+        startActivity(intent);
     }
 
     protected void onMoviesClick() {
-        Toast.makeText(getBaseContext(), "Movies", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(HomeActivity.this, MediaActivity.class);
+        Bundle b = new Bundle();
+        b.putString(Constants.KEY_MEDIA, Constants.MEDIA_MOVIE);
+        intent.putExtras(b);
+        startActivity(intent);
     }
 
     protected void onTVShowsClick() {
-        Toast.makeText(getBaseContext(), "TV Shows", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(HomeActivity.this, MediaActivity.class);
+        Bundle b = new Bundle();
+        b.putString(Constants.KEY_MEDIA, Constants.MEDIA_TVSHOW);
+        intent.putExtras(b);
+        startActivity(intent);
     }
 
     protected void onFriendsClick() {
