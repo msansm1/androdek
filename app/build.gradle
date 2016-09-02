@@ -35,5 +35,6 @@ dependencies {
 
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.joanzapata.iconify:android-iconify-material:2.2.2'
+    compile 'eu.davidea:flexible-adapter:5.0.0-b7'
 
 }

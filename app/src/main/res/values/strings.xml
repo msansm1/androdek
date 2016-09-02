@@ -30,13 +30,15 @@
     <string name="all_collec_tvshows">TV Shows</string>
 
     <string name="title_activity_album">AlbumActivity</string>
-
-    <string name="action_settings">Settings</string>
+    <string name="no_albums">No albums</string>
 
     <string name="title_activity_book">BookActivity</string>
+    <string name="no_books">No books</string>
 
     <string name="title_activity_movie">MovieActivity</string>
+    <string name="no_movies">No movies</string>
 
     <string name="title_activity_tv_show">TvShowActivity</string>
+    <string name="no_tvshows">No tv shows</string>
 
 </resources>

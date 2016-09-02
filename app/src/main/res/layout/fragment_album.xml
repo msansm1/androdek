@@ -8,6 +8,21 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:showIn="@layout/activity_media">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/albumsEmpty"
+        android:text="@string/no_albums"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp"
+        android:gravity="center"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/albumsList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_album"
         android:layout_width="wrap_content"

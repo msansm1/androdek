@@ -4,13 +4,22 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import bzh.msansm1.androdek.R;
+import eu.davidea.flexibleadapter.FlexibleAdapter;
+import eu.davidea.flexibleadapter.SelectableAdapter;
+import eu.davidea.flexibleadapter.items.IFlexible;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -19,6 +28,15 @@ public class AlbumFragment extends Fragment {
 
     @BindView(R.id.add_album)
     FloatingActionButton addAlbum;
+
+    @BindView(R.id.albumsList)
+    RecyclerView albumsList;
+
+    @BindView(R.id.albumsEmpty)
+    TextView albumsEmpty;
+
+    private RecyclerView.LayoutManager mLayoutManager;
+    private FlexibleAdapter<IFlexible> adapter;
 
     public AlbumFragment() {
     }
@@ -32,6 +50,32 @@ public class AlbumFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_album, container, false);
         ButterKnife.bind(this,view);
+
+        mLayoutManager = new LinearLayoutManager(mActivity);
+        albumsList.setLayoutManager(mLayoutManager);
+
+        List<IFlexible> albumItems = new ArrayList<>();
+
+        if (!albumItems.isEmpty()) {
+            albumsEmpty.setVisibility(View.GONE);
+        }
+
+        //Initialize the Adapter
+        adapter = new FlexibleAdapter<>(albumItems);
+
+        //Non-exhaustive configuration that don't need RV instance
+        adapter.setDisplayHeadersAtStartUp(true)//Show Headers at startUp!
+                .setAnimationOnScrolling(true)//Enable Adapter Animation: entry + forward scrolling
+                .setAnimationOnReverseScrolling(true);//Enable Animation for reverse scrolling
+        adapter.setMode(SelectableAdapter.MODE_SINGLE);
+
+        //Initialize the RecyclerView and attach the Adapter to it as usual
+        albumsList.setAdapter(adapter);
+
+        adapter.setSwipeEnabled(true)//Enable swipe items
+                .enableStickyHeaders();//Make headers sticky (headers need to be shown)!
+
+
 
         addAlbum.setOnClickListener(new View.OnClickListener() {
             @Override
