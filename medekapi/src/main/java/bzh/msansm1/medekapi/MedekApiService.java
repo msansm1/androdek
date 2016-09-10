@@ -17,6 +17,7 @@ import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * Created by msansm1 on 11/07/2016.
@@ -35,8 +36,8 @@ public interface MedekApiService {
     //	@QueryParam("from") int from, @QueryParam("limit") int limit,
     //  @QueryParam("orderBy") String orderBy, @QueryParam("orderDir") String orderDir) {
     @GET("services/albums")
-    @FormUrlEncoded
-    Call<List<JsonAlbum>> allAlbums(@FieldMap Map<String, String> params);
+    Call<List<JsonAlbum>> allAlbums(@Query("from") int from, @Query("limit") int limit,
+                                    @Query("orderBy") String orderBy, @Query("orderDir") String orderDir);
 
     @GET("services/books")
     @FormUrlEncoded

@@ -63,8 +63,18 @@ public class AlbumFragment extends MediaFragment {
         MedekApi.getInstance().getAllAlbums(0, 50, "title", "asc", new RetrofitManager.MedekCallBack<List<JsonAlbum>>() {
             @Override
             public void success(List<JsonAlbum> jsonAlbums) {
-                for (JsonAlbum a:jsonAlbums) {
-                    albumItems.add(new AlbumItem(a.getId(), a.getTitle(), a.getArtist(), a.getCover()));
+                if (!jsonAlbums.isEmpty()) {
+                    albumsEmpty.setVisibility(View.GONE);
+                } else {
+                    for (JsonAlbum a : jsonAlbums) {
+                        albumItems.add(new AlbumItem(a.getId(), a.getTitle(), a.getArtist(), a.getCover()));
+                    }
+                    adapter = new FlexibleAdapter<>(albumItems);
+                    adapter.setAnimationOnScrolling(true)
+                            .setAnimationOnReverseScrolling(true);
+                    adapter.setMode(SelectableAdapter.MODE_SINGLE);
+                    albumsList.setAdapter(adapter);
+                    adapter.setSwipeEnabled(true);
                 }
             }
 
@@ -82,17 +92,14 @@ public class AlbumFragment extends MediaFragment {
         //Initialize the Adapter
         adapter = new FlexibleAdapter<>(albumItems);
 
-        //Non-exhaustive configuration that don't need RV instance
-        adapter.setDisplayHeadersAtStartUp(true)//Show Headers at startUp!
-                .setAnimationOnScrolling(true)//Enable Adapter Animation: entry + forward scrolling
-                .setAnimationOnReverseScrolling(true);//Enable Animation for reverse scrolling
+        adapter.setAnimationOnScrolling(true)
+                .setAnimationOnReverseScrolling(true);
         adapter.setMode(SelectableAdapter.MODE_SINGLE);
 
         //Initialize the RecyclerView and attach the Adapter to it as usual
         albumsList.setAdapter(adapter);
 
-        adapter.setSwipeEnabled(true)//Enable swipe items
-                .enableStickyHeaders();//Make headers sticky (headers need to be shown)!
+        adapter.setSwipeEnabled(true);
 
 
 

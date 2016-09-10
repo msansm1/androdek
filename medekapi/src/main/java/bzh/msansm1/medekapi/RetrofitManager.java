@@ -1,5 +1,7 @@
 package bzh.msansm1.medekapi;
 
+import android.util.Log;
+
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.util.HashMap;
@@ -155,13 +157,7 @@ public class RetrofitManager {
     }
 
     public void getAllAlbums(int from, int limit, String orderBy, String orderDir, final MedekCallBack<List<JsonAlbum>> cb) {
-        Map<String, String> params = new HashMap<>();
-        params.put("from", from+"");
-        params.put("limit", limit+"");
-        params.put("orderBy", orderBy+"");
-        params.put("orderDir", orderDir+"");
-
-        service.allAlbums(params).enqueue(new Callback<List<JsonAlbum>>() {
+        service.allAlbums(from, limit, orderBy, orderDir).enqueue(new Callback<List<JsonAlbum>>() {
             @Override
             public void onResponse(Call<List<JsonAlbum>> call, Response<List<JsonAlbum>> response) {
                 cb.success(response.body());

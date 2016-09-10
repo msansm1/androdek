@@ -1,13 +1,14 @@
 package bzh.msansm1.androdek.media.album;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import java.util.List;
 
 import eu.davidea.flexibleadapter.FlexibleAdapter;
 import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
@@ -66,6 +67,14 @@ public class AlbumItem extends AbstractFlexibleItem<AlbumItem.AlbumViewHolder> {
         return new AlbumViewHolder(inflater.inflate(getLayoutRes(), parent, false), adapter);
     }
 
+    @Override
+    public void bindViewHolder(FlexibleAdapter adapter, AlbumViewHolder holder, final int position,
+                                          List payloads) {
+        holder.title.setText(title);
+        holder.artist.setText(artist);
+        Log.i("BOND ALBUM => ", ""+position);
+    }
+
 
     public class AlbumViewHolder extends FlexibleViewHolder {
 
@@ -81,7 +90,7 @@ public class AlbumItem extends AbstractFlexibleItem<AlbumItem.AlbumViewHolder> {
             super(view, adapter);
             title = (TextView) view.findViewById(R.id.item_album_title);
             artist = (TextView) view.findViewById(R.id.item_album_artist);
-            Picasso.with(mContext).load(coverURL).into(cover);
+          //  Picasso.with(mContext).load(coverURL).into(cover);
             mContext = view.getContext();
             this.frontView = view.findViewById(R.id.album_front_view);
             this.rearLeftView = view.findViewById(R.id.album_rear_left_view);

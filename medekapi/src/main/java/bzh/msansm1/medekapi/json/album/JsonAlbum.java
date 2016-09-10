@@ -7,7 +7,7 @@ public class JsonAlbum {
 	private Integer id;
 	private String title;
 	private String cover;
-	private Date releaseDate;
+	private Long releaseDate;
 	private String genre;
 	private Integer genreId;
 	private Integer nbTracks;
@@ -32,7 +32,7 @@ public class JsonAlbum {
 	}
 	
 	public JsonAlbum(Integer id, String title, String cover,
-			Date releaseDate, String genre, Integer nbTracks, String support,
+					 Long releaseDate, String genre, Integer nbTracks, String support,
 			List<JsonTrack> tracks) {
 		super();
 		this.id = id;
@@ -46,7 +46,7 @@ public class JsonAlbum {
 	}
 
 	public JsonAlbum(Integer id, String title, String cover,
-			Date releaseDate, String genre, Integer genreId,
+					 Long releaseDate, String genre, Integer genreId,
 			Integer nbTracks, String support, Integer supportId,
 			List<JsonTrack> tracks) {
 		super();
@@ -63,7 +63,7 @@ public class JsonAlbum {
 	}
 
 	public JsonAlbum(Integer id, String title, String cover,
-			Date releaseDate, String genre, Integer genreId,
+					 Long releaseDate, String genre, Integer genreId,
 			String support, Integer supportId, Integer nbTracks) {
 		super();
 		this.id = id;
@@ -78,7 +78,7 @@ public class JsonAlbum {
 	}
 
 	public JsonAlbum(Integer id, String title, String cover,
-			Date releaseDate, String genre, Integer genreId,
+					 Long releaseDate, String genre, Integer genreId,
 			String support, Integer supportId, Integer nbTracks,
 			Boolean mycollec, Integer rating,
 			Boolean signed) {
@@ -98,7 +98,7 @@ public class JsonAlbum {
 	}
 
 	public JsonAlbum(Integer id, String title, String cover,
-			Date releaseDate, String genre, Integer genreId,
+					 Long releaseDate, String genre, Integer genreId,
 			Integer nbTracks, String support, Integer supportId, String artist,
 			Integer artistId, Boolean mycollec, Integer rating,
 			Boolean signed, List<JsonTrack> tracks) {
@@ -144,11 +144,11 @@ public class JsonAlbum {
 		this.cover = cover;
 	}
 
-	public Date getReleaseDate() {
+	public Long getReleaseDate() {
 		return releaseDate;
 	}
 
-	public void setReleaseDate(Date releaseDate) {
+	public void setReleaseDate(Long releaseDate) {
 		this.releaseDate = releaseDate;
 	}
 

@@ -77,14 +77,20 @@
             android:layout_marginStart="48dp"
             android:gravity="start">
 
-            <rmw.open.com.rmw.commons.component.CustomFontTextView
+            <TextView
                 android:id="@+id/item_album_title"
-                android:textSize="12sp"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="@color/colorPrimaryDark"/>
 
-            <rmw.open.com.rmw.commons.component.CustomFontTextView
+            <TextView
                 android:id="@+id/item_album_artist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:textSize="10sp"
-                android:textAllCaps="false"/>
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"/>
 
         </LinearLayout>
 
