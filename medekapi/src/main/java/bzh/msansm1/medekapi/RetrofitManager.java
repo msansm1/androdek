@@ -2,10 +2,14 @@ package bzh.msansm1.medekapi;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import bzh.msansm1.androdek.persistence.MedekConfig;
 import bzh.msansm1.medekapi.json.JsonError;
+import bzh.msansm1.medekapi.json.album.JsonAlbum;
 import bzh.msansm1.medekapi.json.auth.JsonAuth;
 import bzh.msansm1.medekapi.json.auth.JsonLogin;
 import bzh.msansm1.medekapi.json.home.JsonCollectionStats;
@@ -146,6 +150,26 @@ public class RetrofitManager {
             @Override
             public void onFailure(Call<JsonCollectionStats> call, Throwable t) {
                 cb.failure(new JsonError("Get collection failed", "Error"));
+            }
+        });
+    }
+
+    public void getAllAlbums(int from, int limit, String orderBy, String orderDir, final MedekCallBack<List<JsonAlbum>> cb) {
+        Map<String, String> params = new HashMap<>();
+        params.put("from", from+"");
+        params.put("limit", limit+"");
+        params.put("orderBy", orderBy+"");
+        params.put("orderDir", orderDir+"");
+
+        service.allAlbums(params).enqueue(new Callback<List<JsonAlbum>>() {
+            @Override
+            public void onResponse(Call<List<JsonAlbum>> call, Response<List<JsonAlbum>> response) {
+                cb.success(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<JsonAlbum>> call, Throwable t) {
+                cb.failure(new JsonError("Get albums failed", "Error"));
             }
         });
     }

@@ -11,11 +11,12 @@ import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import bzh.msansm1.androdek.R;
+import bzh.msansm1.androdek.media.MediaFragment;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class BookFragment extends Fragment {
+public class BookFragment extends MediaFragment {
 
     @BindView(R.id.add_book)
     FloatingActionButton addBook;

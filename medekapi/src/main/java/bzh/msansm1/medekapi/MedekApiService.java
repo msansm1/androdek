@@ -1,5 +1,6 @@
 package bzh.msansm1.medekapi;
 
+import java.util.List;
 import java.util.Map;
 
 import bzh.msansm1.medekapi.json.album.JsonAlbum;
@@ -35,7 +36,7 @@ public interface MedekApiService {
     //  @QueryParam("orderBy") String orderBy, @QueryParam("orderDir") String orderDir) {
     @GET("services/albums")
     @FormUrlEncoded
-    Call<JsonAlbum> allAlbums(@FieldMap Map<String, String> params);
+    Call<List<JsonAlbum>> allAlbums(@FieldMap Map<String, String> params);
 
     @GET("services/books")
     @FormUrlEncoded

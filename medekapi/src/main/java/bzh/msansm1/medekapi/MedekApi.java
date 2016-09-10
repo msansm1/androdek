@@ -1,6 +1,9 @@
 package bzh.msansm1.medekapi;
 
+import java.util.List;
+
 import bzh.msansm1.androdek.persistence.MedekConfig;
+import bzh.msansm1.medekapi.json.album.JsonAlbum;
 import bzh.msansm1.medekapi.json.auth.JsonAuth;
 import bzh.msansm1.medekapi.json.auth.JsonLogin;
 import bzh.msansm1.medekapi.json.home.JsonCollectionStats;
@@ -57,6 +60,11 @@ public class MedekApi {
 
     public void getMyCollection(RetrofitManager.MedekCallBack<JsonCollectionStats> callback){
         medekService.getMyCollection(callback);
+    }
+
+    public void getAllAlbums(int from, int limit, String orderBy, String orderDir,
+                             RetrofitManager.MedekCallBack<List<JsonAlbum>> callback){
+        medekService.getAllAlbums(from, limit, orderBy, orderDir, callback);
     }
 
 }

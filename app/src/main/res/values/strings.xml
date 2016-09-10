@@ -29,6 +29,9 @@
     <string name="all_collec_movies">Movies</string>
     <string name="all_collec_tvshows">TV Shows</string>
 
+    <string name="action_settings">Settings</string>
+    <string name="remove_from_collec">Remove</string>
+
     <string name="title_activity_album">AlbumActivity</string>
     <string name="no_albums">No albums</string>
 

@@ -17,6 +17,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import bzh.msansm1.androdek.R;
+import bzh.msansm1.androdek.media.MediaFragment;
+import bzh.msansm1.medekapi.MedekApi;
+import bzh.msansm1.medekapi.RetrofitManager;
+import bzh.msansm1.medekapi.json.JsonError;
+import bzh.msansm1.medekapi.json.album.JsonAlbum;
 import eu.davidea.flexibleadapter.FlexibleAdapter;
 import eu.davidea.flexibleadapter.SelectableAdapter;
 import eu.davidea.flexibleadapter.items.IFlexible;
@@ -24,7 +29,7 @@ import eu.davidea.flexibleadapter.items.IFlexible;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class AlbumFragment extends Fragment {
+public class AlbumFragment extends MediaFragment {
 
     @BindView(R.id.add_album)
     FloatingActionButton addAlbum;
@@ -54,7 +59,21 @@ public class AlbumFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(mActivity);
         albumsList.setLayoutManager(mLayoutManager);
 
-        List<IFlexible> albumItems = new ArrayList<>();
+        final List<IFlexible> albumItems = new ArrayList<>();
+        MedekApi.getInstance().getAllAlbums(0, 50, "title", "asc", new RetrofitManager.MedekCallBack<List<JsonAlbum>>() {
+            @Override
+            public void success(List<JsonAlbum> jsonAlbums) {
+                for (JsonAlbum a:jsonAlbums) {
+                    albumItems.add(new AlbumItem(a.getId(), a.getTitle(), a.getArtist(), a.getCover()));
+                }
+            }
+
+            @Override
+            public void failure(JsonError error) {
+                Snackbar.make(getView(), "Get Album Error", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
 
         if (!albumItems.isEmpty()) {
             albumsEmpty.setVisibility(View.GONE);
