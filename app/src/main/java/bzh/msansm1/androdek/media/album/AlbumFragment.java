@@ -65,16 +65,11 @@ public class AlbumFragment extends MediaFragment {
             public void success(List<JsonAlbum> jsonAlbums) {
                 if (!jsonAlbums.isEmpty()) {
                     albumsEmpty.setVisibility(View.GONE);
-                } else {
+                    List<IFlexible> newItems = new ArrayList<>();
                     for (JsonAlbum a : jsonAlbums) {
-                        albumItems.add(new AlbumItem(a.getId(), a.getTitle(), a.getArtist(), a.getCover()));
+                        newItems.add(new AlbumItem(a.getId(), a.getTitle(), a.getArtist(), a.getCover()));
                     }
-                    adapter = new FlexibleAdapter<>(albumItems);
-                    adapter.setAnimationOnScrolling(true)
-                            .setAnimationOnReverseScrolling(true);
-                    adapter.setMode(SelectableAdapter.MODE_SINGLE);
-                    albumsList.setAdapter(adapter);
-                    adapter.setSwipeEnabled(true);
+                    adapter.updateDataSet(newItems);
                 }
             }
 
