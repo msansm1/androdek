@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import eu.davidea.flexibleadapter.FlexibleAdapter;
@@ -72,7 +74,9 @@ public class AlbumItem extends AbstractFlexibleItem<AlbumItem.AlbumViewHolder> {
                                           List payloads) {
         holder.title.setText(title);
         holder.artist.setText(artist);
-        Log.i("BOND ALBUM => ", ""+position);
+        if (!coverURL.isEmpty()) {
+            Picasso.with(holder.mContext).load(coverURL).into(holder.cover);
+        }
     }
 
 
@@ -81,7 +85,7 @@ public class AlbumItem extends AbstractFlexibleItem<AlbumItem.AlbumViewHolder> {
         public TextView title;
         public TextView artist;
         public ImageView cover;
-        private Context mContext;
+        public Context mContext;
         private View frontView;
         private View rearLeftView;
         private View rearRightView;
@@ -90,7 +94,7 @@ public class AlbumItem extends AbstractFlexibleItem<AlbumItem.AlbumViewHolder> {
             super(view, adapter);
             title = (TextView) view.findViewById(R.id.item_album_title);
             artist = (TextView) view.findViewById(R.id.item_album_artist);
-          //  Picasso.with(mContext).load(coverURL).into(cover);
+            cover = (ImageView) view.findViewById(R.id.item_album_cover);
             mContext = view.getContext();
             this.frontView = view.findViewById(R.id.album_front_view);
             this.rearLeftView = view.findViewById(R.id.album_rear_left_view);
