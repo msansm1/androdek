@@ -18,6 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import bzh.msansm1.androdek.R;
 import bzh.msansm1.androdek.media.MediaFragment;
+import bzh.msansm1.androdek.persistence.MedekConfig;
 import bzh.msansm1.medekapi.MedekApi;
 import bzh.msansm1.medekapi.RetrofitManager;
 import bzh.msansm1.medekapi.json.JsonError;
@@ -59,6 +60,8 @@ public class AlbumFragment extends MediaFragment {
         mLayoutManager = new LinearLayoutManager(mActivity);
         albumsList.setLayoutManager(mLayoutManager);
 
+        final MedekConfig conf = mActivity.getRealm().where(MedekConfig.class).findFirst();
+
         final List<IFlexible> albumItems = new ArrayList<>();
         MedekApi.getInstance().getAllAlbums(0, 50, "title", "asc", new RetrofitManager.MedekCallBack<List<JsonAlbum>>() {
             @Override
@@ -67,7 +70,7 @@ public class AlbumFragment extends MediaFragment {
                     albumsEmpty.setVisibility(View.GONE);
                     List<IFlexible> newItems = new ArrayList<>();
                     for (JsonAlbum a : jsonAlbums) {
-                        newItems.add(new AlbumItem(a.getId(), a.getTitle(), a.getArtist(), a.getCover()));
+                        newItems.add(new AlbumItem(a.getId(), a.getTitle(), a.getArtist(), conf.getApiUrl()+"medekimg/album/"+a.getId()+"/cover.jpg"));
                     }
                     adapter.updateDataSet(newItems);
                 }
