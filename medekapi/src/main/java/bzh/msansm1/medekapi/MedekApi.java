@@ -6,7 +6,10 @@ import bzh.msansm1.androdek.persistence.MedekConfig;
 import bzh.msansm1.medekapi.json.album.JsonAlbum;
 import bzh.msansm1.medekapi.json.auth.JsonAuth;
 import bzh.msansm1.medekapi.json.auth.JsonLogin;
+import bzh.msansm1.medekapi.json.book.JsonBook;
 import bzh.msansm1.medekapi.json.home.JsonCollectionStats;
+import bzh.msansm1.medekapi.json.movie.JsonMovie;
+import bzh.msansm1.medekapi.json.tvshow.JsonShow;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -65,6 +68,21 @@ public class MedekApi {
     public void getAllAlbums(int from, int limit, String orderBy, String orderDir,
                              RetrofitManager.MedekCallBack<List<JsonAlbum>> callback){
         medekService.getAllAlbums(from, limit, orderBy, orderDir, callback);
+    }
+
+    public void getAllBooks(int from, int limit, String orderBy, String orderDir,
+                            RetrofitManager.MedekCallBack<List<JsonBook>> callback) {
+        medekService.getAllBooks(from, limit, orderBy, orderDir, callback);
+    }
+
+    public void getAllMovies(int from, int limit, String orderBy, String orderDir,
+                            RetrofitManager.MedekCallBack<List<JsonMovie>> callback) {
+        medekService.getAllMovies(from, limit, orderBy, orderDir, callback);
+    }
+
+    public void getAllTvshows(int from, int limit, String orderBy, String orderDir,
+                            RetrofitManager.MedekCallBack<List<JsonShow>> callback) {
+        medekService.getAllTvshows(from, limit, orderBy, orderDir, callback);
     }
 
 }

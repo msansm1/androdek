@@ -33,22 +33,20 @@ public interface MedekApiService {
     @GET("services/home/mycollec")
     Call<JsonCollectionStats> myCollection();
 
-    //	@QueryParam("from") int from, @QueryParam("limit") int limit,
-    //  @QueryParam("orderBy") String orderBy, @QueryParam("orderDir") String orderDir) {
     @GET("services/albums")
     Call<List<JsonAlbum>> allAlbums(@Query("from") int from, @Query("limit") int limit,
                                     @Query("orderBy") String orderBy, @Query("orderDir") String orderDir);
 
     @GET("services/books")
-    @FormUrlEncoded
-    Call<JsonBook> allBooks(@FieldMap Map<String, String> params);
+    Call<List<JsonBook>> allBooks(@Query("from") int from, @Query("limit") int limit,
+                            @Query("orderBy") String orderBy, @Query("orderDir") String orderDir);
 
     @GET("services/movies")
-    @FormUrlEncoded
-    Call<JsonMovie> allMovies(@FieldMap Map<String, String> params);
+    Call<List<JsonMovie>> allMovies(@Query("from") int from, @Query("limit") int limit,
+                              @Query("orderBy") String orderBy, @Query("orderDir") String orderDir);
 
     @GET("services/tvshows")
-    @FormUrlEncoded
-    Call<JsonShow> allTvShows(@FieldMap Map<String, String> params);
+    Call<List<JsonShow>> allTvshows(@Query("from") int from, @Query("limit") int limit,
+                              @Query("orderBy") String orderBy, @Query("orderDir") String orderDir);
 
 }

@@ -14,7 +14,10 @@ import bzh.msansm1.medekapi.json.JsonError;
 import bzh.msansm1.medekapi.json.album.JsonAlbum;
 import bzh.msansm1.medekapi.json.auth.JsonAuth;
 import bzh.msansm1.medekapi.json.auth.JsonLogin;
+import bzh.msansm1.medekapi.json.book.JsonBook;
 import bzh.msansm1.medekapi.json.home.JsonCollectionStats;
+import bzh.msansm1.medekapi.json.movie.JsonMovie;
+import bzh.msansm1.medekapi.json.tvshow.JsonShow;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -166,6 +169,48 @@ public class RetrofitManager {
             @Override
             public void onFailure(Call<List<JsonAlbum>> call, Throwable t) {
                 cb.failure(new JsonError("Get albums failed", "Error"));
+            }
+        });
+    }
+
+    public void getAllBooks(int from, int limit, String orderBy, String orderDir, final MedekCallBack<List<JsonBook>> cb) {
+        service.allBooks(from, limit, orderBy, orderDir).enqueue(new Callback<List<JsonBook>>() {
+            @Override
+            public void onResponse(Call<List<JsonBook>> call, Response<List<JsonBook>> response) {
+                cb.success(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<JsonBook>> call, Throwable t) {
+                cb.failure(new JsonError("Get books failed", "Error"));
+            }
+        });
+    }
+
+    public void getAllMovies(int from, int limit, String orderBy, String orderDir, final MedekCallBack<List<JsonMovie>> cb) {
+        service.allMovies(from, limit, orderBy, orderDir).enqueue(new Callback<List<JsonMovie>>() {
+            @Override
+            public void onResponse(Call<List<JsonMovie>> call, Response<List<JsonMovie>> response) {
+                cb.success(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<JsonMovie>> call, Throwable t) {
+                cb.failure(new JsonError("Get movies failed", "Error"));
+            }
+        });
+    }
+
+    public void getAllTvshows(int from, int limit, String orderBy, String orderDir, final MedekCallBack<List<JsonShow>> cb) {
+        service.allTvshows(from, limit, orderBy, orderDir).enqueue(new Callback<List<JsonShow>>() {
+            @Override
+            public void onResponse(Call<List<JsonShow>> call, Response<List<JsonShow>> response) {
+                cb.success(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<JsonShow>> call, Throwable t) {
+                cb.failure(new JsonError("Get tv shows failed", "Error"));
             }
         });
     }
