@@ -1,7 +1,5 @@
 package bzh.msansm1.medekapi.json.book;
 
-import java.util.Date;
-
 public class JsonBook {
 	private Integer id;
 	private String title;
@@ -13,7 +11,7 @@ public class JsonBook {
 	private Integer collectionId;
 	private String cover;
 	private String description;
-	private Date publicationDate;
+	private Long publicationLong;
 	private String genre;
 	private Integer genreId;
 	private String type;
@@ -49,7 +47,7 @@ public class JsonBook {
 
 	public JsonBook(Integer id, String title,
 			String editor, Integer editorId, String cover, String description,
-			Date publicationDate, String genre, Integer genreId, String type,
+			Long publicationLong, String genre, Integer genreId, String type,
 			Integer typeId, String lang, Integer langId, String series,
 			Integer bookNb, Boolean isSerieDone) {
 		super();
@@ -59,7 +57,7 @@ public class JsonBook {
 		this.editorId = editorId;
 		this.cover = cover;
 		this.description = description;
-		this.publicationDate = publicationDate;
+		this.publicationLong = publicationLong;
 		this.genre = genre;
 		this.genreId = genreId;
 		this.type = type;
@@ -74,7 +72,7 @@ public class JsonBook {
 	public JsonBook(Integer id, String title,
 			String editor, Integer editorId, String collection,
 			Integer collectionId, String cover, String description,
-			Date publicationDate, String genre, Integer genreId, String type,
+			Long publicationLong, String genre, Integer genreId, String type,
 			Integer typeId, String lang, Integer langId, String series,
 			Integer bookNb, Boolean isSerieDone) {
 		super();
@@ -86,7 +84,7 @@ public class JsonBook {
 		this.collectionId = collectionId;
 		this.cover = cover;
 		this.description = description;
-		this.publicationDate = publicationDate;
+		this.publicationLong = publicationLong;
 		this.genre = genre;
 		this.genreId = genreId;
 		this.type = type;
@@ -101,7 +99,7 @@ public class JsonBook {
 	public JsonBook(Integer id, String title, String author, Integer authorId,
 			String editor, Integer editorId, String collection,
 			Integer collectionId, String cover, String description,
-			Date publicationDate, String genre, Integer genreId, String type,
+			Long publicationLong, String genre, Integer genreId, String type,
 			Integer typeId, String lang, Integer langId, String series,
 			Integer bookNb, Boolean isSerieDone, Boolean mycollec,
 			Integer rating, Boolean signed) {
@@ -116,7 +114,7 @@ public class JsonBook {
 		this.collectionId = collectionId;
 		this.cover = cover;
 		this.description = description;
-		this.publicationDate = publicationDate;
+		this.publicationLong = publicationLong;
 		this.genre = genre;
 		this.genreId = genreId;
 		this.type = type;
@@ -187,12 +185,12 @@ public class JsonBook {
 		this.description = description;
 	}
 
-	public Date getPublicationDate() {
-		return publicationDate;
+	public Long getPublicationLong() {
+		return publicationLong;
 	}
 
-	public void setPublicationDate(Date publicationDate) {
-		this.publicationDate = publicationDate;
+	public void setPublicationLong(Long publicationLong) {
+		this.publicationLong = publicationLong;
 	}
 
 	public String getGenre() {

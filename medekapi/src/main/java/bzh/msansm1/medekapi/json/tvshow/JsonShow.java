@@ -1,6 +1,5 @@
 package bzh.msansm1.medekapi.json.tvshow;
 
-import java.util.Date;
 import java.util.List;
 
 import bzh.msansm1.medekapi.json.JsonLang;
@@ -9,7 +8,7 @@ public class JsonShow {
 	private Integer id;
 	private String title;
 	private String description;
-	private Date releaseDate;
+	private Long releaseLong;
 	private String cover;
 	private String support;
 	private Integer supportId;
@@ -37,13 +36,13 @@ public class JsonShow {
 	}
 
 	public JsonShow(Integer id, String title, String description,
-			Date releaseDate, String cover, String length, Integer season,
+			Long releaseLong, String cover, String length, Integer season,
 			String series, Boolean isSeriesDone) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.description = description;
-		this.releaseDate = releaseDate;
+		this.releaseLong = releaseLong;
 		this.cover = cover;
 		this.length = length;
 		this.season = season;
@@ -53,14 +52,14 @@ public class JsonShow {
 
 
 	public JsonShow(Integer id, String title, String description,
-			Date releaseDate, String cover, String support, Integer supportId,
+			Long releaseLong, String cover, String support, Integer supportId,
 			String genre, Integer genreId, String length, Integer season,
 			String series, Boolean isSeriesDone) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.description = description;
-		this.releaseDate = releaseDate;
+		this.releaseLong = releaseLong;
 		this.cover = cover;
 		this.support = support;
 		this.supportId = supportId;
@@ -73,7 +72,7 @@ public class JsonShow {
 	}
 
 	public JsonShow(Integer id, String title, String description,
-			Date releaseDate, String cover, String support, Integer supportId,
+			Long releaseLong, String cover, String support, Integer supportId,
 			String genre, Integer genreId, String length, Integer season,
 			String series, Boolean isSeriesDone, List<JsonLang> langs,
 			List<JsonLang> subtitles, Boolean mycollec, Integer rating) {
@@ -81,7 +80,7 @@ public class JsonShow {
 		this.id = id;
 		this.title = title;
 		this.description = description;
-		this.releaseDate = releaseDate;
+		this.releaseLong = releaseLong;
 		this.cover = cover;
 		this.support = support;
 		this.supportId = supportId;
@@ -129,12 +128,12 @@ public class JsonShow {
 		this.description = description;
 	}
 
-	public Date getReleaseDate() {
-		return releaseDate;
+	public Long getReleaseLong() {
+		return releaseLong;
 	}
 
-	public void setReleaseDate(Date releaseDate) {
-		this.releaseDate = releaseDate;
+	public void setReleaseLong(Long releaseLong) {
+		this.releaseLong = releaseLong;
 	}
 
 	public String getSupport() {

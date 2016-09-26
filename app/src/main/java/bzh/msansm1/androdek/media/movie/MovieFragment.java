@@ -80,7 +80,7 @@ public class MovieFragment extends MediaFragment {
 
             @Override
             public void failure(JsonError error) {
-                Snackbar.make(getView(), "Get Movie Error", Snackbar.LENGTH_LONG)
+                Snackbar.make(getView(), error.getTitle(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });

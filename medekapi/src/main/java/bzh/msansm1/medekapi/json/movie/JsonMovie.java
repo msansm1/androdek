@@ -1,6 +1,5 @@
 package bzh.msansm1.medekapi.json.movie;
 
-import java.util.Date;
 import java.util.List;
 
 import bzh.msansm1.medekapi.json.JsonLang;
@@ -9,7 +8,7 @@ public class JsonMovie {
 	private Integer id;
 	private String title;
 	private String description;
-	private Date releaseDate;
+	private Long releaseLong;
 	private String cover;
 	private String support;
 	private Integer supportId;
@@ -33,14 +32,14 @@ public class JsonMovie {
 	}
 
 	public JsonMovie(Integer id, String title, String description,
-			Date releaseDate, String cover, String support,
+			Long releaseLong, String cover, String support,
 			Integer supportId, String genre, Integer genreId, String length,
 			Boolean isCollector) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.description = description;
-		this.releaseDate = releaseDate;
+		this.releaseLong = releaseLong;
 		this.cover = cover;
 		this.support = support;
 		this.supportId = supportId;
@@ -51,14 +50,14 @@ public class JsonMovie {
 	}
 
 	public JsonMovie(Integer id, String title, String description,
-			Date releaseDate, String cover, String support,
+			Long releaseLong, String cover, String support,
 			Integer supportId, String genre, Integer genreId, String length,
 			Boolean isCollector, List<JsonLang> langs, List<JsonLang> subtitles) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.description = description;
-		this.releaseDate = releaseDate;
+		this.releaseLong = releaseLong;
 		this.cover = cover;
 		this.support = support;
 		this.supportId = supportId;
@@ -71,14 +70,14 @@ public class JsonMovie {
 	}
 
 	public JsonMovie(Integer id, String title, String description,
-			Date releaseDate, String cover, String support, Integer supportId,
+			Long releaseLong, String cover, String support, Integer supportId,
 			String genre, Integer genreId, String length, Boolean isCollector,
 			Boolean mycollec, Integer rating) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.description = description;
-		this.releaseDate = releaseDate;
+		this.releaseLong = releaseLong;
 		this.cover = cover;
 		this.support = support;
 		this.supportId = supportId;
@@ -91,7 +90,7 @@ public class JsonMovie {
 	}
 
 	public JsonMovie(Integer id, String title, String description,
-			Date releaseDate, String cover, String support, Integer supportId,
+			Long releaseLong, String cover, String support, Integer supportId,
 			String genre, Integer genreId, String length, Boolean isCollector,
 			String realisator, Integer realisatorId, String producer,
 			Integer producerId, String scenarist, Integer scenaristId,
@@ -101,7 +100,7 @@ public class JsonMovie {
 		this.id = id;
 		this.title = title;
 		this.description = description;
-		this.releaseDate = releaseDate;
+		this.releaseLong = releaseLong;
 		this.cover = cover;
 		this.support = support;
 		this.supportId = supportId;
@@ -145,12 +144,12 @@ public class JsonMovie {
 		this.description = description;
 	}
 
-	public Date getReleaseDate() {
-		return releaseDate;
+	public Long getReleaseLong() {
+		return releaseLong;
 	}
 
-	public void setReleaseDate(Date releaseDate) {
-		this.releaseDate = releaseDate;
+	public void setReleaseLong(Long releaseLong) {
+		this.releaseLong = releaseLong;
 	}
 
 	public String getCover() {

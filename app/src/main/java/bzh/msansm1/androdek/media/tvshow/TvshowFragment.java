@@ -80,7 +80,7 @@ public class TvshowFragment extends MediaFragment {
 
             @Override
             public void failure(JsonError error) {
-                Snackbar.make(getView(), "Get Tvshow Error", Snackbar.LENGTH_LONG)
+                Snackbar.make(getView(), error.getTitle(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });

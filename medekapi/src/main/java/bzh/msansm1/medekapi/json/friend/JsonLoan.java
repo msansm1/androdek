@@ -1,7 +1,5 @@
 package bzh.msansm1.medekapi.json.friend;
 
-import java.util.Date;
-
 public class JsonLoan {
 	private Integer id;
 	private Integer userId;
@@ -16,8 +14,8 @@ public class JsonLoan {
 	private String movie;
 	private Integer tvshowId;
 	private String tvshow;
-	private Date startDate;
-	private Date endDate;
+	private Long startLong;
+	private Long endLong;
 	
 	public JsonLoan() {
 		super();
@@ -25,7 +23,7 @@ public class JsonLoan {
 
 	public JsonLoan(Integer id, Integer userId, String userLogin, Integer friendId, String friendLogin, Integer bookId,
 			String book, Integer albumId, String album, Integer movieId, String movie, Integer tvshowId, String tvshow,
-			Date startDate, Date endDate) {
+			Long startLong, Long endLong) {
 		super();
 		this.id = id;
 		this.userId = userId;
@@ -40,8 +38,8 @@ public class JsonLoan {
 		this.movie = movie;
 		this.tvshowId = tvshowId;
 		this.tvshow = tvshow;
-		this.startDate = startDate;
-		this.endDate = endDate;
+		this.startLong = startLong;
+		this.endLong = endLong;
 	}
 
 	public Integer getId() {
@@ -148,20 +146,20 @@ public class JsonLoan {
 		this.tvshow = tvshow;
 	}
 
-	public Date getStartDate() {
-		return startDate;
+	public Long getStartLong() {
+		return startLong;
 	}
 
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
+	public void setStartLong(Long startLong) {
+		this.startLong = startLong;
 	}
 
-	public Date getEndDate() {
-		return endDate;
+	public Long getEndLong() {
+		return endLong;
 	}
 
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
+	public void setEndLong(Long endLong) {
+		this.endLong = endLong;
 	}
 	
 }
