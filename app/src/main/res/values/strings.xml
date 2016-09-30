@@ -5,10 +5,12 @@
     <string name="prompt_login">Login</string>
     <string name="prompt_password">Password</string>
     <string name="action_login">Login</string>
+    <string name="permission_denied">Permission denied</string>
 
     <string name="ico_config">{md-build}</string>
 
     <string name="config_url">API URL</string>
+    <string name="config_discogs">DISCOGS token</string>
     <string name="config_save">Save</string>
 
     <string name="title_activity_home">HomeActivity</string>
@@ -34,6 +36,8 @@
 
     <string name="title_activity_album">AlbumActivity</string>
     <string name="no_albums">No albums</string>
+    <string name="scan_album_code">Scan album barcode</string>
+    <string name="search_discogs">Search on Discogs</string>
 
     <string name="title_activity_book">BookActivity</string>
     <string name="no_books">No books</string>
@@ -43,5 +47,7 @@
 
     <string name="title_activity_tv_show">TvShowActivity</string>
     <string name="no_tvshows">No tv shows</string>
+
+    <string name="error_scan">Scan error</string>
 
 </resources>

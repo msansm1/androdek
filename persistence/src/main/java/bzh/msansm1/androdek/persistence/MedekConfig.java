@@ -8,6 +8,7 @@ import io.realm.RealmObject;
 public class MedekConfig extends RealmObject {
     private String apiUrl;
     private String token;
+    private String discogsToken;
 
     public String getApiUrl() {
         return apiUrl;
@@ -23,5 +24,13 @@ public class MedekConfig extends RealmObject {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getDiscogsToken() {
+        return discogsToken;
+    }
+
+    public void setDiscogsToken(String discogsToken) {
+        this.discogsToken = discogsToken;
     }
 }

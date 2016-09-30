@@ -21,6 +21,9 @@ public class ConfigActivity extends MedekActivity {
     @BindView(R.id.api_url)
     EditText apiUrl;
 
+    @BindView(R.id.dicogs_token)
+    EditText discogsToken;
+
     private MedekConfig config;
 
     public static Intent getIntent(Context ctx){
@@ -37,6 +40,7 @@ public class ConfigActivity extends MedekActivity {
         if (!res.isEmpty()) {
             config = res.first();
             apiUrl.setText(config.getApiUrl());
+            discogsToken.setText(config.getDiscogsToken());
         }
     }
 
@@ -49,6 +53,7 @@ public class ConfigActivity extends MedekActivity {
         }
 
         config.setApiUrl(apiUrl.getText().toString().trim());
+        config.setDiscogsToken(discogsToken.getText().toString().trim());
         realm.commitTransaction();
 
         try {

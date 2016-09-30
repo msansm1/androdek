@@ -1,1 +1,1 @@
-include ':app', ':medekapi', ':persistence'
+include ':app', ':medekapi', ':persistence', ':discogsapi'

@@ -38,5 +38,6 @@ dependencies {
     //Using MavenSnapshots repository for continuous updates from my development
     compile 'eu.davidea:flexible-adapter:5.0.0-SNAPSHOT'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile ('eu.livotov.labs.android:CAMView:2.0.1@aar') {transitive=true}
 
 }
