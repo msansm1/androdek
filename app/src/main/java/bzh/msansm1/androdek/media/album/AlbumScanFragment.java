@@ -19,10 +19,12 @@ import butterknife.ButterKnife;
 import bzh.msansm1.androdek.R;
 import bzh.msansm1.androdek.media.MediaFragment;
 import bzh.msansm1.androdek.persistence.MedekConfig;
+import bzh.msansm1.androdek.persistence.media.AlbumSearch;
 import bzh.msansm1.discogsapi.DiscogsApi;
 import bzh.msansm1.discogsapi.DiscogsApiRetrofit;
 import bzh.msansm1.discogsapi.json.DiscogsError;
 import bzh.msansm1.discogsapi.json.search.SearchResponse;
+import bzh.msansm1.discogsapi.json.search.SearchResult;
 import bzh.msansm1.medekapi.RetrofitManager;
 import bzh.msansm1.medekapi.json.JsonError;
 import eu.livotov.labs.android.camview.ScannerLiveView;
@@ -57,6 +59,9 @@ public class AlbumScanFragment extends MediaFragment implements ScannerLiveView.
         ButterKnife.bind(this, convertView);
         discogsToken = mActivity.getRealm().where(MedekConfig.class).findFirst().getDiscogsToken();
         scanText.setText(getString(R.string.scan_album_code));
+        mActivity.getRealm().beginTransaction();
+        mActivity.getRealm().delete(AlbumSearch.class);
+        mActivity.getRealm().commitTransaction();
         return convertView;
 
     }
@@ -155,6 +160,19 @@ public class AlbumScanFragment extends MediaFragment implements ScannerLiveView.
                 public void success(SearchResponse searchResponse) {
                     Snackbar.make(getView(), "Results : "+searchResponse.getResults().size(), Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
+                    mActivity.getRealm().beginTransaction();
+                    for (SearchResult res : searchResponse.getResults()) {
+                        AlbumSearch albumSearch = new AlbumSearch();
+                        albumSearch.setId(res.getId());
+                        albumSearch.setTitle(res.getTitle());
+                        albumSearch.setCountry(res.getCountry());
+                        albumSearch.setYear(res.getYear());
+                        albumSearch.setCoverURL(res.getThumb());
+                        albumSearch.setResourceURL(res.getResource_url());
+                        mActivity.getRealm().copyToRealm(albumSearch);
+                    }
+                    mActivity.getRealm().commitTransaction();
+                    mActivity.getSupportFragmentManager().beginTransaction().replace(R.id.mediaFragment, AlbumScanResultFragment.getFragment()).commit();
                 }
 
                 @Override
