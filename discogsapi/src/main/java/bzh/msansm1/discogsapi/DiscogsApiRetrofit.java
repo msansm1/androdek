@@ -2,6 +2,8 @@ package bzh.msansm1.discogsapi;
 
 import android.util.Log;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.json.JSONObject;
 
 import bzh.msansm1.discogsapi.json.DiscogsError;
@@ -12,7 +14,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.jackson.JacksonConverterFactory;
+
+import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
 
 /**
  * Created by ronan on 30/09/2016.
@@ -30,10 +34,11 @@ public class DiscogsApiRetrofit {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         client.addInterceptor(logging);
+        ObjectMapper jacksonMapper = new ObjectMapper().configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(JacksonConverterFactory.create(jacksonMapper))
                 .client(client.build())
                 .build();
 

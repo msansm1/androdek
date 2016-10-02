@@ -17,6 +17,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import bzh.msansm1.androdek.R;
+import bzh.msansm1.androdek.home.HomeFragment;
 import bzh.msansm1.androdek.media.MediaFragment;
 import bzh.msansm1.androdek.persistence.MedekConfig;
 import bzh.msansm1.medekapi.MedekApi;
@@ -104,8 +105,7 @@ public class AlbumFragment extends MediaFragment {
         addAlbum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Add Album", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                mActivity.getSupportFragmentManager().beginTransaction().replace(R.id.mediaFragment, AlbumScanFragment.getFragment()).commit();
             }
         });
 

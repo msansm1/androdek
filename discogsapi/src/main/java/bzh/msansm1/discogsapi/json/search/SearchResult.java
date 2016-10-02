@@ -15,7 +15,7 @@ public class SearchResult {
     private List<String> style;
     private List<String> format;
     private String country;
-    private String barcode;
+    private List<String> barcode;
     private List<String> label;
     private String uri;
     private String thumb;
@@ -87,11 +87,11 @@ public class SearchResult {
         this.country = country;
     }
 
-    public String getBarcode() {
+    public List<String> getBarcode() {
         return barcode;
     }
 
-    public void setBarcode(String barcode) {
+    public void setBarcode(List<String> barcode) {
         this.barcode = barcode;
     }
 

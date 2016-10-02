@@ -21,7 +21,7 @@ import eu.livotov.labs.android.camview.scanner.decoder.zxing.PlanarRotatedYUVLum
 
 public class AlbumBarDecoder implements BarcodeDecoder {
 
-    public enum AlbumBarcodeFormat { CODE_128 };
+    public enum AlbumBarcodeFormat { UPC_A, UPC_E, UPC_EAN_EXTENSION };
     protected Map<DecodeHintType, Object> hints = new EnumMap<DecodeHintType, Object>(DecodeHintType.class);
 
     private MultiFormatReader reader;

@@ -6,6 +6,7 @@ import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.MaterialModule;
 
 import bzh.msansm1.androdek.persistence.utils.PersistenceUtils;
+import bzh.msansm1.discogsapi.DiscogsApi;
 import bzh.msansm1.medekapi.MedekApi;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -32,6 +33,7 @@ public class AndrodekApp extends Application {
         Realm.setDefaultConfiguration(config);
 
         MedekApi.getInstance().initApi();
+        DiscogsApi.getInstance().initApi();
 
     }
 }

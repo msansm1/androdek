@@ -6,7 +6,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import bzh.msansm1.androdek.R;
 import bzh.msansm1.androdek.media.MediaFragment;
+import bzh.msansm1.androdek.persistence.MedekConfig;
+import bzh.msansm1.discogsapi.DiscogsApi;
+import bzh.msansm1.discogsapi.DiscogsApiRetrofit;
+import bzh.msansm1.discogsapi.json.DiscogsError;
+import bzh.msansm1.discogsapi.json.search.SearchResponse;
 import bzh.msansm1.medekapi.RetrofitManager;
 import bzh.msansm1.medekapi.json.JsonError;
 import eu.livotov.labs.android.camview.ScannerLiveView;
@@ -36,8 +43,8 @@ public class AlbumScanFragment extends MediaFragment implements ScannerLiveView.
     TextView scanText;
 
     private static final int REQUEST_CAMERA_STAT = 1;
-
     private boolean scanOK = false;
+    private String discogsToken;
 
     public static AlbumScanFragment getFragment() {
         return new AlbumScanFragment();
@@ -48,6 +55,7 @@ public class AlbumScanFragment extends MediaFragment implements ScannerLiveView.
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View convertView = inflater.inflate(R.layout.fragment_album_scan, container, false);
         ButterKnife.bind(this, convertView);
+        discogsToken = mActivity.getRealm().where(MedekConfig.class).findFirst().getDiscogsToken();
         scanText.setText(getString(R.string.scan_album_code));
         return convertView;
 
@@ -114,7 +122,7 @@ public class AlbumScanFragment extends MediaFragment implements ScannerLiveView.
         liveView.setSameCodeRescanProtectionTime(10000);
         liveView.setDecodeThrottleMillis(500);
         liveView.setScannerViewEventListener(this);
-        liveView.setHudImageResource(R.drawable.scan_layer);
+        liveView.setHudImageResource(R.drawable.scan_area);
         liveView.startScanner();
 
     }
@@ -131,17 +139,32 @@ public class AlbumScanFragment extends MediaFragment implements ScannerLiveView.
 
     @Override
     public void onScannerError(Throwable err) {
+        Log.e("SCANNER", "Error album scan", err);
+        err.printStackTrace();
         showErrorMessage();
     }
 
     @Override
     public void onCodeScanned(String data) {
         if (this.isDetached() || scanOK) return;
-        if (data.length() == 10) {
+        if (data.length() == 13) {
             scanOK = true;
-            scanText.setText(getString(R.string.search_discogs));
-            // call discogs
+            scanText.setText(getString(R.string.search_discogs)+" "+data);
+            DiscogsApi.getInstance().searchAlbumByBarcode(discogsToken, data, new DiscogsApiRetrofit.DiscogsCallBack<SearchResponse>() {
+                @Override
+                public void success(SearchResponse searchResponse) {
+                    Snackbar.make(getView(), "Results : "+searchResponse.getResults().size(), Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+
+                @Override
+                public void failure(DiscogsError error) {
+                    Snackbar.make(getView(), error.getTitle(), Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            });
         } else {
+            Log.e("Barcode error", "length not 10 : "+data.length());
             showErrorMessage();
         }
     }

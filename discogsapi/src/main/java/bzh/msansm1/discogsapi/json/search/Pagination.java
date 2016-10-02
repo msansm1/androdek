@@ -11,7 +11,6 @@ public class Pagination {
     private Integer items;
     private Integer page;
     private Integer pages;
-    private List<String> urls;
 
     public Integer getPer_page() {
         return per_page;
@@ -43,13 +42,5 @@ public class Pagination {
 
     public void setPages(Integer pages) {
         this.pages = pages;
-    }
-
-    public List<String> getUrls() {
-        return urls;
-    }
-
-    public void setUrls(List<String> urls) {
-        this.urls = urls;
     }
 }
