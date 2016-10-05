@@ -89,6 +89,7 @@ public class AlbumScanResultItem extends AbstractFlexibleItem<AlbumScanResultIte
         if (!coverURL.isEmpty()) {
             Picasso.with(holder.mContext).load(coverURL).into(holder.cover);
         }
+        holder.setId(id);
     }
 
 
@@ -100,6 +101,7 @@ public class AlbumScanResultItem extends AbstractFlexibleItem<AlbumScanResultIte
         public TextView country;
         public ImageView cover;
         public Context mContext;
+        private Integer id;
 
         public AlbumViewHolder(View view, FlexibleAdapter adapter) {
             super(view, adapter);
@@ -114,7 +116,12 @@ public class AlbumScanResultItem extends AbstractFlexibleItem<AlbumScanResultIte
         @Override
         public void onClick(View view) {
             super.onClick(view);
-            // frag details
+            ((MediaActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.mediaFragment, ScanResultDetailsFragment.getFragment(id)).commit();
         }
+
+        public void setId(Integer id) {
+            this.id = id;
+        }
+
     }
 }

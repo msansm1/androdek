@@ -1,5 +1,6 @@
 package bzh.msansm1.discogsapi;
 
+import bzh.msansm1.discogsapi.json.release.Release;
 import bzh.msansm1.discogsapi.json.search.SearchResponse;
 
 /**
@@ -29,5 +30,10 @@ public class DiscogsApi {
     public void searchAlbumByBarcode(String token, String barcode,
                                      DiscogsApiRetrofit.DiscogsCallBack<SearchResponse> callback){
         apiRetrofit.searchAlbumByCode(token, barcode, callback);
+    }
+
+    public void getRelease(String token, Integer id,
+                           DiscogsApiRetrofit.DiscogsCallBack<Release> callback){
+        apiRetrofit.getRelease(token, id, callback);
     }
 }

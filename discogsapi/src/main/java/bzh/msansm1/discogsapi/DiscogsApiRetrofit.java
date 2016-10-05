@@ -2,11 +2,13 @@ package bzh.msansm1.discogsapi;
 
 import android.util.Log;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.json.JSONObject;
 
 import bzh.msansm1.discogsapi.json.DiscogsError;
+import bzh.msansm1.discogsapi.json.release.Release;
 import bzh.msansm1.discogsapi.json.search.SearchResponse;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -35,6 +37,8 @@ public class DiscogsApiRetrofit {
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         client.addInterceptor(logging);
         ObjectMapper jacksonMapper = new ObjectMapper().configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
+        jacksonMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        jacksonMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
@@ -59,6 +63,24 @@ public class DiscogsApiRetrofit {
             @Override
             public void onFailure(Call<SearchResponse> call, Throwable t) {
                 Log.e("DISCOGS", "search album by code", t);
+            }
+        });
+    }
+
+    public void getRelease(String token, Integer id, final DiscogsCallBack callBack) {
+        apiService.getRelease(id, token, "").enqueue(new Callback<Release>() {
+            @Override
+            public void onResponse(Call<Release> call, Response<Release> response) {
+                if (response.isSuccessful()) {
+                    callBack.success(response.body());
+                } else {
+                    callBack.failure(new DiscogsError("Get release failed", "Discogs Error"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Release> call, Throwable t) {
+                Log.e("DISCOGS", "get release", t);
             }
         });
     }
