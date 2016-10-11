@@ -1,6 +1,5 @@
 package bzh.msansm1.medekapi.json.album;
 
-import java.util.Date;
 import java.util.List;
 
 public class JsonAlbum {
@@ -8,6 +7,7 @@ public class JsonAlbum {
 	private String title;
 	private String cover;
 	private Long releaseDate;
+	private Integer cds;
 	private String genre;
 	private Integer genreId;
 	private Integer nbTracks;
@@ -32,7 +32,7 @@ public class JsonAlbum {
 	}
 	
 	public JsonAlbum(Integer id, String title, String cover,
-					 Long releaseDate, String genre, Integer nbTracks, String support,
+			Long releaseDate, String genre, Integer nbTracks, String support,
 			List<JsonTrack> tracks) {
 		super();
 		this.id = id;
@@ -46,7 +46,7 @@ public class JsonAlbum {
 	}
 
 	public JsonAlbum(Integer id, String title, String cover,
-					 Long releaseDate, String genre, Integer genreId,
+			Long releaseDate, String genre, Integer genreId,
 			Integer nbTracks, String support, Integer supportId,
 			List<JsonTrack> tracks) {
 		super();
@@ -63,7 +63,7 @@ public class JsonAlbum {
 	}
 
 	public JsonAlbum(Integer id, String title, String cover,
-					 Long releaseDate, String genre, Integer genreId,
+			Long releaseDate, String genre, Integer genreId,
 			String support, Integer supportId, Integer nbTracks) {
 		super();
 		this.id = id;
@@ -78,7 +78,7 @@ public class JsonAlbum {
 	}
 
 	public JsonAlbum(Integer id, String title, String cover,
-					 Long releaseDate, String genre, Integer genreId,
+			Long releaseDate, String genre, Integer genreId,
 			String support, Integer supportId, Integer nbTracks,
 			Boolean mycollec, Integer rating,
 			Boolean signed) {
@@ -98,7 +98,28 @@ public class JsonAlbum {
 	}
 
 	public JsonAlbum(Integer id, String title, String cover,
-					 Long releaseDate, String genre, Integer genreId,
+			Long releaseDate, String genre, Integer genreId,
+			String support, Integer supportId, Integer nbTracks,
+			Integer cds, Boolean mycollec, Integer rating,
+			Boolean signed) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.cover = cover;
+		this.releaseDate = releaseDate;
+		this.genre = genre;
+		this.genreId = genreId;
+		this.nbTracks = nbTracks;
+		this.support = support;
+		this.supportId = supportId;
+		this.cds = cds;
+		this.mycollec = mycollec;
+		this.rating = rating;
+		this.signed = signed;
+	}
+
+	public JsonAlbum(Integer id, String title, String cover,
+			Long releaseDate, String genre, Integer genreId,
 			Integer nbTracks, String support, Integer supportId, String artist,
 			Integer artistId, Boolean mycollec, Integer rating,
 			Boolean signed, List<JsonTrack> tracks) {
@@ -109,6 +130,30 @@ public class JsonAlbum {
 		this.releaseDate = releaseDate;
 		this.genre = genre;
 		this.genreId = genreId;
+		this.nbTracks = nbTracks;
+		this.support = support;
+		this.supportId = supportId;
+		this.artist = artist;
+		this.artistId = artistId;
+		this.mycollec = mycollec;
+		this.rating = rating;
+		this.signed = signed;
+		this.tracks = tracks;
+	}
+
+	public JsonAlbum(Integer id, String title, String cover,
+			Long releaseDate, String genre, Integer genreId, Integer cds,
+			Integer nbTracks, String support, Integer supportId, String artist,
+			Integer artistId, Boolean mycollec, Integer rating,
+			Boolean signed, List<JsonTrack> tracks) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.cover = cover;
+		this.releaseDate = releaseDate;
+		this.genre = genre;
+		this.genreId = genreId;
+		this.cds = cds;
 		this.nbTracks = nbTracks;
 		this.support = support;
 		this.supportId = supportId;
@@ -150,6 +195,14 @@ public class JsonAlbum {
 
 	public void setReleaseDate(Long releaseDate) {
 		this.releaseDate = releaseDate;
+	}
+
+	public Integer getCds() {
+		return cds;
+	}
+
+	public void setCds(Integer cds) {
+		this.cds = cds;
 	}
 
 	public String getGenre() {

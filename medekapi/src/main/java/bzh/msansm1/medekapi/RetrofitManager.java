@@ -12,6 +12,8 @@ import java.util.concurrent.TimeUnit;
 import bzh.msansm1.androdek.persistence.MedekConfig;
 import bzh.msansm1.medekapi.json.JsonError;
 import bzh.msansm1.medekapi.json.album.JsonAlbum;
+import bzh.msansm1.medekapi.json.album.JsonTrack;
+import bzh.msansm1.medekapi.json.artist.JsonArtist;
 import bzh.msansm1.medekapi.json.auth.JsonAuth;
 import bzh.msansm1.medekapi.json.auth.JsonLogin;
 import bzh.msansm1.medekapi.json.book.JsonBook;
@@ -173,6 +175,48 @@ public class RetrofitManager {
         });
     }
 
+    public void createUpdateAlbum(JsonAlbum album, final MedekCallBack<JsonAlbum> cb) {
+        service.createUpdateAlbum(album).enqueue(new Callback<JsonAlbum>() {
+            @Override
+            public void onResponse(Call<JsonAlbum> call, Response<JsonAlbum> response) {
+                cb.success(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<JsonAlbum> call, Throwable t) {
+                cb.failure(new JsonError("Create / Update Album failed", "Error"));
+            }
+        });
+    }
+
+    public void getAlbumTracks(Integer albumId, final MedekCallBack<List<JsonTrack>> cb) {
+        service.getAlbumTracks(albumId).enqueue(new Callback<List<JsonTrack>>() {
+            @Override
+            public void onResponse(Call<List<JsonTrack>> call, Response<List<JsonTrack>> response) {
+                cb.success(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<JsonTrack>> call, Throwable t) {
+                cb.failure(new JsonError("Get Album Tracks failed", "Error"));
+            }
+        });
+    }
+
+    public void createUpdateTrack(JsonTrack track, final MedekCallBack<JsonTrack> cb) {
+        service.createUpdateTrack(track).enqueue(new Callback<JsonTrack>() {
+            @Override
+            public void onResponse(Call<JsonTrack> call, Response<JsonTrack> response) {
+                cb.success(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<JsonTrack> call, Throwable t) {
+                cb.failure(new JsonError("Create / update track failed", "Error"));
+            }
+        });
+    }
+
     public void getAllBooks(int from, int limit, String orderBy, String orderDir, final MedekCallBack<List<JsonBook>> cb) {
         service.allBooks(from, limit, orderBy, orderDir).enqueue(new Callback<List<JsonBook>>() {
             @Override
@@ -211,6 +255,34 @@ public class RetrofitManager {
             @Override
             public void onFailure(Call<List<JsonShow>> call, Throwable t) {
                 cb.failure(new JsonError("Get tv shows failed", "Error"));
+            }
+        });
+    }
+
+    public void getAllArtists(final MedekCallBack<List<JsonArtist>> cb) {
+        service.allArtists().enqueue(new Callback<List<JsonArtist>>() {
+            @Override
+            public void onResponse(Call<List<JsonArtist>> call, Response<List<JsonArtist>> response) {
+                cb.success(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<JsonArtist>> call, Throwable t) {
+                cb.failure(new JsonError("Get artists failed", "Error"));
+            }
+        });
+    }
+
+    public void createUpdateArtist(JsonArtist artist, final MedekCallBack<JsonArtist> cb) {
+        service.createUpdateArtist(artist).enqueue(new Callback<JsonArtist>() {
+            @Override
+            public void onResponse(Call<JsonArtist> call, Response<JsonArtist> response) {
+                cb.success(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<JsonArtist> call, Throwable t) {
+                cb.failure(new JsonError("create / update artist failed", "Error"));
             }
         });
     }
