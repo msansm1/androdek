@@ -137,7 +137,13 @@ public class ScanResultDetailsFragment extends MediaFragment {
             if (t.getPosition().indexOf('-') > 0) {
                 position = Integer.valueOf(t.getPosition().substring(t.getPosition().indexOf('-')+1, t.getPosition().length()));
             } else {
-                position = Integer.valueOf(t.getPosition());
+                if (t.getPosition().indexOf('.') > 0) {
+                    position = Integer.valueOf(t.getPosition().substring(t.getPosition().indexOf('.')+1, t.getPosition().length()));
+                } else {
+                    if (isInteger(t.getPosition())) {
+                        position = Integer.valueOf(t.getPosition());
+                    }
+                }
             }
             JsonTrack track = new JsonTrack(null, null, t.getTitle(), position, t.getDuration(),
                     (t.getArtists() == null)?albumRelease.getArtists().get(0).getName():t.getArtists().get(0).getName(), null);
@@ -158,5 +164,29 @@ public class ScanResultDetailsFragment extends MediaFragment {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    private boolean isInteger(String str) {
+        if (str == null) {
+            return false;
+        }
+        int length = str.length();
+        if (length == 0) {
+            return false;
+        }
+        int i = 0;
+        if (str.charAt(0) == '-') {
+            if (length == 1) {
+                return false;
+            }
+            i = 1;
+        }
+        for (; i < length; i++) {
+            char c = str.charAt(i);
+            if (c < '0' || c > '9') {
+                return false;
+            }
+        }
+        return true;
     }
 }

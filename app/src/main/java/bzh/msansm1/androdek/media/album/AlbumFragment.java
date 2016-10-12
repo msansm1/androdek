@@ -71,7 +71,11 @@ public class AlbumFragment extends MediaFragment {
                     albumsEmpty.setVisibility(View.GONE);
                     List<IFlexible> newItems = new ArrayList<>();
                     for (JsonAlbum a : jsonAlbums) {
-                        newItems.add(new AlbumItem(a.getId(), a.getTitle(), a.getArtist(), conf.getApiUrl()+"medekimg/album/"+a.getId()+"/cover.jpg"));
+                        if (a.getCover().startsWith("https://")) {
+                            newItems.add(new AlbumItem(a.getId(), a.getTitle(), a.getArtist(), a.getCover()));
+                        } else {
+                            newItems.add(new AlbumItem(a.getId(), a.getTitle(), a.getArtist(), conf.getApiUrl()+"medekimg/album/"+a.getId()+"/cover.jpg"));
+                        }
                     }
                     adapter.updateDataSet(newItems);
                 }
