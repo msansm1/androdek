@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 import bzh.msansm1.androdek.persistence.MedekConfig;
 import bzh.msansm1.medekapi.json.JsonError;
 import bzh.msansm1.medekapi.json.album.JsonAlbum;
+import bzh.msansm1.medekapi.json.album.JsonMyAlbum;
 import bzh.msansm1.medekapi.json.album.JsonTrack;
 import bzh.msansm1.medekapi.json.artist.JsonArtist;
 import bzh.msansm1.medekapi.json.auth.JsonAuth;
@@ -185,6 +186,20 @@ public class RetrofitManager {
             @Override
             public void onFailure(Call<JsonAlbum> call, Throwable t) {
                 cb.failure(new JsonError("Create / Update Album failed", "Error"));
+            }
+        });
+    }
+
+    public void addAlbumToMyCollec(JsonMyAlbum album, final MedekCallBack<String> cb) {
+        service.addAlbumToMyCollec(album).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                cb.success(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                cb.failure(new JsonError("Add to my collec failed", "Error"));
             }
         });
     }
