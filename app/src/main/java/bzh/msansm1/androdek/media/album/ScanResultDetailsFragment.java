@@ -1,8 +1,10 @@
 package bzh.msansm1.androdek.media.album;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import bzh.msansm1.androdek.R;
+import bzh.msansm1.androdek.media.MediaActivity;
 import bzh.msansm1.androdek.media.MediaFragment;
 import bzh.msansm1.androdek.persistence.MedekConfig;
 import bzh.msansm1.androdek.persistence.media.AlbumSearch;
@@ -35,6 +38,7 @@ import bzh.msansm1.medekapi.RetrofitManager;
 import bzh.msansm1.medekapi.json.JsonError;
 import bzh.msansm1.medekapi.json.album.JsonAddSearch;
 import bzh.msansm1.medekapi.json.album.JsonAlbum;
+import bzh.msansm1.medekapi.json.album.JsonMyAlbum;
 import bzh.msansm1.medekapi.json.album.JsonTrack;
 import bzh.msansm1.medekapi.json.artist.JsonArtist;
 
@@ -153,9 +157,11 @@ public class ScanResultDetailsFragment extends MediaFragment {
         MedekApi.getInstance().createUpdateAlbum(a, new RetrofitManager.MedekCallBack<JsonAlbum>() {
             @Override
             public void success(JsonAlbum album) {
-                //a.setId(album.getId());
+                a.setId(album.getId());
                 Snackbar.make(getView(), "Added "+a.getTitle(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                Integer userId = mActivity.getRealm().where(MedekConfig.class).findFirst().getUserId();
+                addToMyCollecDialog(new JsonMyAlbum(album.getId(), userId, 1, "", false));
             }
 
             @Override
@@ -164,6 +170,48 @@ public class ScanResultDetailsFragment extends MediaFragment {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    private void addToMyCollecDialog(final JsonMyAlbum myAlbum) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+
+        builder.setMessage("Add to my collection ?")
+                .setTitle("Add to collection / wishlist");
+
+        builder.setPositiveButton("Add to my collection", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                MedekApi.getInstance().addAlbumToMyCollec(myAlbum, new RetrofitManager.MedekCallBack<String>() {
+                    @Override
+                    public void success(String s) {
+                        Snackbar.make(getView(), "Added to my collection", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+
+                    @Override
+                    public void failure(JsonError error) {
+                        Snackbar.make(getView(), "Add to collection failed", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                });
+                dialog.dismiss();
+            }
+        });
+        builder.setNeutralButton("Add to whishlist", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                //DataProvider.getInstance().initRMW();
+                dialog.dismiss();
+                //initToken();
+            }
+        });
+        builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
     }
 
     private boolean isInteger(String str) {

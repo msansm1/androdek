@@ -91,9 +91,11 @@ public class LoginActivity extends MedekActivity {
                     RealmResults<MedekConfig> conf = realm.where(MedekConfig.class).findAll();
                     if (!conf.isEmpty()) {
                         conf.first().setToken(jsonAuth.getToken());
+                        conf.first().setUserId(jsonAuth.getId());
                     } else {
                         MedekConfig config = realm.createObject(MedekConfig.class);
                         config.setToken(jsonAuth.getToken());
+                        config.setUserId(jsonAuth.getId());
                     }
                     realm.commitTransaction();
                     startActivity(HomeActivity.getIntent(LoginActivity.this));
