@@ -57,6 +57,7 @@ public class AlbumFragment extends MediaFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_album, container, false);
         ButterKnife.bind(this,view);
+        mActivity.getSupportActionBar().setTitle(getString(R.string.albums));
 
         mLayoutManager = new LinearLayoutManager(mActivity);
         albumsList.setLayoutManager(mLayoutManager);

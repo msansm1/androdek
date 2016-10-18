@@ -58,6 +58,8 @@ public class AlbumScanResultFragment  extends MediaFragment {
         View view = inflater.inflate(R.layout.fragment_album_scan_result, container, false);
         ButterKnife.bind(this,view);
 
+        mActivity.getSupportActionBar().setTitle("Album scan results");
+
         mLayoutManager = new LinearLayoutManager(mActivity);
         albumsList.setLayoutManager(mLayoutManager);
 

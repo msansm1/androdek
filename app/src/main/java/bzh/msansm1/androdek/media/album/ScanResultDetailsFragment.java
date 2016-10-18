@@ -23,24 +23,19 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import bzh.msansm1.androdek.R;
-import bzh.msansm1.androdek.media.MediaActivity;
 import bzh.msansm1.androdek.media.MediaFragment;
 import bzh.msansm1.androdek.persistence.MedekConfig;
-import bzh.msansm1.androdek.persistence.media.AlbumSearch;
 import bzh.msansm1.discogsapi.DiscogsApi;
 import bzh.msansm1.discogsapi.DiscogsApiRetrofit;
 import bzh.msansm1.discogsapi.json.DiscogsError;
 import bzh.msansm1.discogsapi.json.release.Release;
 import bzh.msansm1.discogsapi.json.release.Track;
-import bzh.msansm1.discogsapi.json.search.SearchResponse;
 import bzh.msansm1.medekapi.MedekApi;
 import bzh.msansm1.medekapi.RetrofitManager;
 import bzh.msansm1.medekapi.json.JsonError;
-import bzh.msansm1.medekapi.json.album.JsonAddSearch;
 import bzh.msansm1.medekapi.json.album.JsonAlbum;
 import bzh.msansm1.medekapi.json.album.JsonMyAlbum;
 import bzh.msansm1.medekapi.json.album.JsonTrack;
-import bzh.msansm1.medekapi.json.artist.JsonArtist;
 
 /**
  * Created by ronan on 03/10/2016.
@@ -94,6 +89,7 @@ public class ScanResultDetailsFragment extends MediaFragment {
             getArguments().remove(ALBUM_ID);
             initData(id);
         }
+
         return convertView;
 
     }
@@ -105,6 +101,7 @@ public class ScanResultDetailsFragment extends MediaFragment {
                 albumRelease = release;
                 artistText.setText(release.getArtists().get(0).getName());
                 titleText.setText(release.getTitle());
+                mActivity.getSupportActionBar().setTitle(release.getTitle());
                 countryText.setText(release.getCountry());
                 yearText.setText(release.getYear()+"");
                 genreText.setText(release.getGenres().get(0));
