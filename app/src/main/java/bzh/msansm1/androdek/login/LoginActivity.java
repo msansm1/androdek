@@ -4,10 +4,14 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.AsyncTask;
@@ -64,6 +68,8 @@ public class LoginActivity extends MedekActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
+        testConnectivity();
+
         RealmResults<MedekConfig> conf = realm.where(MedekConfig.class).findAll();
         if (!conf.isEmpty()) {
             if (conf.first().getToken() != null) {
@@ -112,6 +118,39 @@ public class LoginActivity extends MedekActivity {
     @OnClick(R.id.ico_config)
     protected void clickConfig() {
         startActivity(ConfigActivity.getIntent(LoginActivity.this));
+    }
+
+    private void testConnectivity() {
+        // Test connection
+        ConnectivityManager cm =
+                (ConnectivityManager) LoginActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+
+        // not connected
+        if (!(activeNetwork != null && activeNetwork.isConnectedOrConnecting())) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+
+            builder.setMessage("Do you want to connect ?")
+                    .setTitle("No internet connection");
+
+            builder.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.dismiss();
+                    testConnectivity();
+                }
+            });
+            builder.setNegativeButton("Stay offline", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.dismiss();
+                }
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
+
+        }
     }
 }
 
