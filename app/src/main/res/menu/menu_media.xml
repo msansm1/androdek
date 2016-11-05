@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="bzh.msansm1.androdek.media.MediaActivity">
+
+    <item
+        android:id="@+id/action_all"
+        android:title="@string/all_list"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_my_list"
+        android:title="@string/my_list"
+        app:showAsAction="never" />
+
+</menu>

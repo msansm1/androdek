@@ -63,6 +63,9 @@ public class ScanResultDetailsFragment extends MediaFragment {
     @BindView(R.id.album_res_cover)
     ImageView coverImg;
 
+    @BindView(R.id.album_res_tracks)
+    TextView tracksText;
+
     private String discogsToken;
     private Release albumRelease;
 
@@ -105,6 +108,14 @@ public class ScanResultDetailsFragment extends MediaFragment {
                 countryText.setText(release.getCountry());
                 yearText.setText(release.getYear()+"");
                 genreText.setText(release.getGenres().get(0));
+                String tracks="";
+                for (Track t:release.getTracklist()) {
+                    tracks += t.getTitle();
+                    tracks += "     ";
+                    tracks += t.getDuration();
+                    tracks += "\n";
+                }
+                tracksText.setText(tracks);
                 Picasso.with(getContext()).load(release.getThumb()).into(coverImg);
             }
 
@@ -195,9 +206,7 @@ public class ScanResultDetailsFragment extends MediaFragment {
         });
         builder.setNeutralButton("Add to whishlist", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                //DataProvider.getInstance().initRMW();
                 dialog.dismiss();
-                //initToken();
             }
         });
         builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {

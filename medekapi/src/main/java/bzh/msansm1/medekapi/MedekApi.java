@@ -74,6 +74,11 @@ public class MedekApi {
         medekService.getAllAlbums(from, limit, orderBy, orderDir, callback);
     }
 
+    public void getUserAlbums(int from, int limit, String orderBy, String orderDir, int userId,
+                             RetrofitManager.MedekCallBack<List<JsonAlbum>> callback){
+        medekService.getUserAlbums(from, limit, orderBy, orderDir, userId, callback);
+    }
+
     public void createUpdateAlbum(JsonAlbum album, final RetrofitManager.MedekCallBack<JsonAlbum> callback) {
         medekService.createUpdateAlbum(album, callback);
     }

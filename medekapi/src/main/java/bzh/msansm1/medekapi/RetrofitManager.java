@@ -176,6 +176,20 @@ public class RetrofitManager {
         });
     }
 
+    public void getUserAlbums(int from, int limit, String orderBy, String orderDir, int userId, final MedekCallBack<List<JsonAlbum>> cb) {
+        service.userAlbums(from, limit, orderBy, orderDir, userId).enqueue(new Callback<List<JsonAlbum>>() {
+            @Override
+            public void onResponse(Call<List<JsonAlbum>> call, Response<List<JsonAlbum>> response) {
+                cb.success(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<JsonAlbum>> call, Throwable t) {
+                cb.failure(new JsonError("Get user albums failed", "Error"));
+            }
+        });
+    }
+
     public void createUpdateAlbum(JsonAlbum album, final MedekCallBack<JsonAlbum> cb) {
         service.createUpdateAlbum(album).enqueue(new Callback<JsonAlbum>() {
             @Override

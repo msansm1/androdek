@@ -43,6 +43,11 @@ public interface MedekApiService {
     @POST("services/albums")
     Call<JsonAlbum> createUpdateAlbum(@Body JsonAlbum album);
 
+    @GET("services/albums/user")
+    Call<List<JsonAlbum>> userAlbums(@Query("from") int from, @Query("limit") int limit,
+                                    @Query("orderBy") String orderBy, @Query("orderDir") String orderDir,
+                                    @Query("userId") int userId);
+
     @POST("services/albums/addtocollec")
     Call<String> addAlbumToMyCollec(@Body JsonMyAlbum album);
 

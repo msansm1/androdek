@@ -18,6 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import bzh.msansm1.androdek.R;
 import bzh.msansm1.androdek.media.MediaFragment;
+import bzh.msansm1.androdek.media.album.AlbumFragment;
 import bzh.msansm1.androdek.media.movie.MovieFragment;
 import bzh.msansm1.androdek.media.movie.MovieItem;
 import bzh.msansm1.androdek.persistence.MedekConfig;
@@ -51,6 +52,14 @@ public class MovieFragment extends MediaFragment {
 
     public static MovieFragment getFragment(){
         return new MovieFragment();
+    }
+
+    public static MovieFragment getFragment(Boolean mylist) {
+        MovieFragment frag = new MovieFragment();
+        Bundle args = new Bundle();
+        args.putBoolean("mylist", mylist);
+        frag.setArguments(args);
+        return frag;
     }
 
     @Override

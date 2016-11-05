@@ -40,10 +40,10 @@ public class HomeFragment extends Fragment {
         return new HomeFragment();
     }
 
-    public static HomeFragment getFragment(String ticketId) {
+    public static HomeFragment getFragment(String token) {
         HomeFragment frag = new HomeFragment();
         Bundle args = new Bundle();
-        args.putString("token", ticketId);
+        args.putString("token", token);
         frag.setArguments(args);
         return frag;
     }

@@ -18,6 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import bzh.msansm1.androdek.R;
 import bzh.msansm1.androdek.media.MediaFragment;
+import bzh.msansm1.androdek.media.album.AlbumFragment;
 import bzh.msansm1.androdek.media.book.BookFragment;
 import bzh.msansm1.androdek.media.book.BookItem;
 import bzh.msansm1.androdek.persistence.MedekConfig;
@@ -51,6 +52,14 @@ public class BookFragment extends MediaFragment {
 
     public static BookFragment getFragment(){
         return new BookFragment();
+    }
+
+    public static BookFragment getFragment(Boolean mylist) {
+        BookFragment frag = new BookFragment();
+        Bundle args = new Bundle();
+        args.putBoolean("mylist", mylist);
+        frag.setArguments(args);
+        return frag;
     }
 
     @Override

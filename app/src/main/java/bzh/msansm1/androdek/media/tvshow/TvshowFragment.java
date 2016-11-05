@@ -18,6 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import bzh.msansm1.androdek.R;
 import bzh.msansm1.androdek.media.MediaFragment;
+import bzh.msansm1.androdek.media.album.AlbumFragment;
 import bzh.msansm1.androdek.media.tvshow.TvshowFragment;
 import bzh.msansm1.androdek.media.tvshow.TvshowItem;
 import bzh.msansm1.androdek.persistence.MedekConfig;
@@ -51,6 +52,14 @@ public class TvshowFragment extends MediaFragment {
 
     public static TvshowFragment getFragment(){
         return new TvshowFragment();
+    }
+
+    public static TvshowFragment getFragment(Boolean mylist) {
+        TvshowFragment frag = new TvshowFragment();
+        Bundle args = new Bundle();
+        args.putBoolean("mylist", mylist);
+        frag.setArguments(args);
+        return frag;
     }
 
     @Override
