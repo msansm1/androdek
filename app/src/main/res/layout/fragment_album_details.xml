@@ -142,14 +142,19 @@
 
             <LinearLayout
                 android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:gravity="end">
+                android:layout_width="match_parent">
 
                 <TextView
-                    android:id="@+id/album_res_tracks"
+                    android:id="@+id/album_res_tracks_title"
                     android:layout_height="match_parent"
-                    android:layout_width="wrap_content"
+                    android:layout_width="280dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="24dp"/>
+
+                <TextView
+                    android:id="@+id/album_res_tracks_duration"
+                    android:layout_height="match_parent"
+                    android:layout_width="80dp"
                     android:gravity="center_vertical"/>
 
             </LinearLayout>
@@ -164,6 +169,9 @@
         android:text="@string/album_add"
         android:layout_height="48dp"
         android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimary"
+        android:visibility="gone"/>
 
 </RelativeLayout>

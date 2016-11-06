@@ -30,6 +30,6 @@
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="48dp"
         android:layout_marginEnd="24dp"
-        android:tint="@color/white"/>
+        android:tint="@color/black"/>
 
 </RelativeLayout>

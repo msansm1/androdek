@@ -41,9 +41,10 @@ import bzh.msansm1.medekapi.json.album.JsonTrack;
  * Created by ronan on 03/10/2016.
  */
 
-public class ScanResultDetailsFragment extends MediaFragment {
+public class AlbumDetailsFragment extends MediaFragment {
 
     public static final String ALBUM_ID="albumId";
+    public static final String DISCOGS_ID="discogsId";
 
     @BindView(R.id.album_res_artist)
     TextView artistText;
@@ -63,20 +64,30 @@ public class ScanResultDetailsFragment extends MediaFragment {
     @BindView(R.id.album_res_cover)
     ImageView coverImg;
 
-    @BindView(R.id.album_res_tracks)
-    TextView tracksText;
+    @BindView(R.id.album_res_tracks_title)
+    TextView tracksTitleText;
+
+    @BindView(R.id.album_res_tracks_duration)
+    TextView tracksDurationText;
+
+    @BindView(R.id.album_res_add)
+    View addAlbumButton;
 
     private String discogsToken;
     private Release albumRelease;
 
-    public static ScanResultDetailsFragment getFragment() {
-        return new ScanResultDetailsFragment();
+    public static AlbumDetailsFragment getFragment() {
+        return new AlbumDetailsFragment();
     }
 
-    public static ScanResultDetailsFragment getFragment(Integer id){
-        ScanResultDetailsFragment fragment = new ScanResultDetailsFragment();
+    public static AlbumDetailsFragment getFragment(Integer id, boolean medek){
+        AlbumDetailsFragment fragment = new AlbumDetailsFragment();
         Bundle args = new Bundle();
-        args.putInt(ALBUM_ID, id);
+        if (medek) {
+            args.putInt(ALBUM_ID, id);
+        } else {
+            args.putInt(DISCOGS_ID, id);
+        }
         fragment.setArguments(args);
         return fragment;
     }
@@ -84,20 +95,31 @@ public class ScanResultDetailsFragment extends MediaFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View convertView = inflater.inflate(R.layout.fragment_album_result_details, container, false);
+        View convertView = inflater.inflate(R.layout.fragment_album_details, container, false);
         ButterKnife.bind(this, convertView);
         discogsToken = mActivity.getRealm().where(MedekConfig.class).findFirst().getDiscogsToken();
-        if (getArguments() != null && getArguments().containsKey(ALBUM_ID)) {
-            Integer id = getArguments().getInt(ALBUM_ID);
-            getArguments().remove(ALBUM_ID);
-            initData(id);
+        if (getArguments() != null) {
+            if (getArguments().containsKey(ALBUM_ID)) {
+                Integer id = getArguments().getInt(ALBUM_ID);
+                getArguments().remove(ALBUM_ID);
+                initMedekData(id);
+            } else if (getArguments().containsKey(DISCOGS_ID)) {
+                Integer id = getArguments().getInt(DISCOGS_ID);
+                getArguments().remove(DISCOGS_ID);
+                initDiscogsData(id);
+                addAlbumButton.setVisibility(View.VISIBLE);
+            }
         }
 
         return convertView;
 
     }
 
-    private void initData(Integer id) {
+    private void initMedekData(Integer id) {
+
+    }
+
+    private void initDiscogsData(Integer id) {
         DiscogsApi.getInstance().getRelease(discogsToken, id, new DiscogsApiRetrofit.DiscogsCallBack<Release>() {
             @Override
             public void success(Release release) {
@@ -109,13 +131,15 @@ public class ScanResultDetailsFragment extends MediaFragment {
                 yearText.setText(release.getYear()+"");
                 genreText.setText(release.getGenres().get(0));
                 String tracks="";
+                String durations="";
                 for (Track t:release.getTracklist()) {
                     tracks += t.getTitle();
-                    tracks += "     ";
-                    tracks += t.getDuration();
                     tracks += "\n";
+                    durations += t.getDuration();
+                    durations += "\n";
                 }
-                tracksText.setText(tracks);
+                tracksTitleText.setText(tracks);
+                tracksDurationText.setText(durations);
                 Picasso.with(getContext()).load(release.getThumb()).into(coverImg);
             }
 

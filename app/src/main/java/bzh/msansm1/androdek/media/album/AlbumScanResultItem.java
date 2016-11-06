@@ -116,7 +116,7 @@ public class AlbumScanResultItem extends AbstractFlexibleItem<AlbumScanResultIte
         @Override
         public void onClick(View view) {
             super.onClick(view);
-            ((MediaActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.mediaFragment, ScanResultDetailsFragment.getFragment(id)).commit();
+            ((MediaActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.mediaFragment, AlbumDetailsFragment.getFragment(id, false)).commit();
         }
 
         public void setId(Integer id) {

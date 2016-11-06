@@ -3,20 +3,15 @@ package bzh.msansm1.androdek.media;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import bzh.msansm1.androdek.R;
-import bzh.msansm1.androdek.home.HomeActivity;
-import bzh.msansm1.androdek.home.HomeFragment;
-import bzh.msansm1.androdek.media.album.AlbumFragment;
+import bzh.msansm1.androdek.media.album.AlbumListFragment;
 import bzh.msansm1.androdek.media.book.BookFragment;
 import bzh.msansm1.androdek.media.movie.MovieFragment;
 import bzh.msansm1.androdek.media.tvshow.TvshowFragment;
@@ -48,7 +43,7 @@ public class MediaActivity extends MedekActivity {
             media = b.getString(Constants.KEY_MEDIA);
             launchMediaFrag(false);
         } else {
-            getSupportFragmentManager().beginTransaction().replace(R.id.mediaFragment, AlbumFragment.getFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.mediaFragment, AlbumListFragment.getFragment()).commit();
         }
     }
 
@@ -83,7 +78,7 @@ public class MediaActivity extends MedekActivity {
 
     private void launchMediaFrag(Boolean mylist) {
         if (media.equals(Constants.MEDIA_ALBUM)) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.mediaFragment, AlbumFragment.getFragment(mylist)).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.mediaFragment, AlbumListFragment.getFragment(mylist)).commit();
             getSupportActionBar().setTitle(getString(R.string.albums));
         } else if (media.equals(Constants.MEDIA_BOOK)) {
             getSupportFragmentManager().beginTransaction().replace(R.id.mediaFragment, BookFragment.getFragment(mylist)).commit();

@@ -1,8 +1,8 @@
 package bzh.msansm1.androdek.media.album;
 
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,7 +17,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import bzh.msansm1.androdek.R;
-import bzh.msansm1.androdek.home.HomeFragment;
 import bzh.msansm1.androdek.media.MediaFragment;
 import bzh.msansm1.androdek.persistence.MedekConfig;
 import bzh.msansm1.medekapi.MedekApi;
@@ -31,7 +30,7 @@ import eu.davidea.flexibleadapter.items.IFlexible;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class AlbumFragment extends MediaFragment {
+public class AlbumListFragment extends MediaFragment {
 
     @BindView(R.id.add_album)
     FloatingActionButton addAlbum;
@@ -47,15 +46,15 @@ public class AlbumFragment extends MediaFragment {
 
     private Boolean myList = false;
 
-    public AlbumFragment() {
+    public AlbumListFragment() {
     }
 
-    public static AlbumFragment getFragment(){
-        return new AlbumFragment();
+    public static AlbumListFragment getFragment(){
+        return new AlbumListFragment();
     }
 
-    public static AlbumFragment getFragment(Boolean mylist) {
-        AlbumFragment frag = new AlbumFragment();
+    public static AlbumListFragment getFragment(Boolean mylist) {
+        AlbumListFragment frag = new AlbumListFragment();
         Bundle args = new Bundle();
         args.putBoolean("mylist", mylist);
         frag.setArguments(args);
@@ -91,15 +90,7 @@ public class AlbumFragment extends MediaFragment {
                 public void success(List<JsonAlbum> jsonAlbums) {
                     if (!jsonAlbums.isEmpty()) {
                         albumsEmpty.setVisibility(View.GONE);
-                        List<IFlexible> newItems = new ArrayList<>();
-                        for (JsonAlbum a : jsonAlbums) {
-                            if (a.getCover().startsWith("https://")) {
-                                newItems.add(new AlbumItem(a.getId(), a.getTitle(), a.getArtist(), a.getCover()));
-                            } else {
-                                newItems.add(new AlbumItem(a.getId(), a.getTitle(), a.getArtist(), conf.getApiUrl() + "medekimg/album/" + a.getId() + "/cover.jpg"));
-                            }
-                        }
-                        adapter.updateDataSet(newItems);
+                        adapter.updateDataSet(convertToAlbumItems(jsonAlbums, conf));
                     }
                 }
 
@@ -115,15 +106,7 @@ public class AlbumFragment extends MediaFragment {
                 public void success(List<JsonAlbum> jsonAlbums) {
                     if (!jsonAlbums.isEmpty()) {
                         albumsEmpty.setVisibility(View.GONE);
-                        List<IFlexible> newItems = new ArrayList<>();
-                        for (JsonAlbum a : jsonAlbums) {
-                            if (a.getCover().startsWith("https://")) {
-                                newItems.add(new AlbumItem(a.getId(), a.getTitle(), a.getArtist(), a.getCover()));
-                            } else {
-                                newItems.add(new AlbumItem(a.getId(), a.getTitle(), a.getArtist(), conf.getApiUrl() + "medekimg/album/" + a.getId() + "/cover.jpg"));
-                            }
-                        }
-                        adapter.updateDataSet(newItems);
+                        adapter.updateDataSet(convertToAlbumItems(jsonAlbums, conf));
                     }
                 }
 
@@ -151,8 +134,6 @@ public class AlbumFragment extends MediaFragment {
 
         adapter.setSwipeEnabled(true);
 
-
-
         addAlbum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -161,5 +142,22 @@ public class AlbumFragment extends MediaFragment {
         });
 
         return view;
+    }
+
+    @NonNull
+    private List<IFlexible> convertToAlbumItems(List<JsonAlbum> jsonAlbums, MedekConfig conf) {
+        List<IFlexible> newItems = new ArrayList<>();
+        for (JsonAlbum a : jsonAlbums) {
+            if (a.getCover().startsWith("https://")) {
+                newItems.add(new AlbumItem(a.getId(), a.getTitle(), a.getArtist(), a.getCover()));
+            } else {
+                newItems.add(new AlbumItem(a.getId(), a.getTitle(), a.getArtist(), conf.getApiUrl() + "medekimg/album/" + a.getId() + "/cover.jpg"));
+            }
+        }
+        return newItems;
+    }
+
+    public Boolean getMyList() {
+        return myList;
     }
 }

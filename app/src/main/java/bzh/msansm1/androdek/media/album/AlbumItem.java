@@ -12,6 +12,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import bzh.msansm1.androdek.media.MediaActivity;
 import eu.davidea.flexibleadapter.FlexibleAdapter;
 import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
 import eu.davidea.viewholders.FlexibleViewHolder;
@@ -99,6 +100,12 @@ public class AlbumItem extends AbstractFlexibleItem<AlbumItem.AlbumViewHolder> {
             this.frontView = view.findViewById(R.id.album_front_view);
             this.rearLeftView = view.findViewById(R.id.album_rear_left_view);
             this.rearRightView = view.findViewById(R.id.album_rear_right_view);
+        }
+
+        @Override
+        public void onClick(View view) {
+            super.onClick(view);
+            ((MediaActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.mediaFragment, AlbumDetailsFragment.getFragment(id, true)).commit();
         }
 
         @Override
