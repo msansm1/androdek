@@ -64,7 +64,7 @@ public class AlbumListFragment extends MediaFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_album, container, false);
+        View view = inflater.inflate(R.layout.fragment_album_list, container, false);
         ButterKnife.bind(this,view);
 
         if (getArguments() != null && getArguments().containsKey("mylist")) {
