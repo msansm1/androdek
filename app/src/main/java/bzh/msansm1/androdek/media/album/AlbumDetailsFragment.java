@@ -33,6 +33,7 @@ import bzh.msansm1.discogsapi.json.release.Track;
 import bzh.msansm1.medekapi.MedekApi;
 import bzh.msansm1.medekapi.RetrofitManager;
 import bzh.msansm1.medekapi.json.JsonError;
+import bzh.msansm1.medekapi.json.JsonSimpleResponse;
 import bzh.msansm1.medekapi.json.album.JsonAlbum;
 import bzh.msansm1.medekapi.json.album.JsonMyAlbum;
 import bzh.msansm1.medekapi.json.album.JsonTrack;
@@ -212,11 +213,16 @@ public class AlbumDetailsFragment extends MediaFragment {
 
         builder.setPositiveButton("Add to my collection", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                MedekApi.getInstance().addAlbumToMyCollec(myAlbum, new RetrofitManager.MedekCallBack<String>() {
+                MedekApi.getInstance().addAlbumToMyCollec(myAlbum, new RetrofitManager.MedekCallBack<JsonSimpleResponse>() {
                     @Override
-                    public void success(String s) {
-                        Snackbar.make(getView(), "Added to my collection", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
+                    public void success(JsonSimpleResponse s) {
+                        if (s.getOk().equals("true")) {
+                            Snackbar.make(getView(), "Added to my collection", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                        } else {
+                            Snackbar.make(getView(), "Add to collection failed", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                        }
                     }
 
                     @Override

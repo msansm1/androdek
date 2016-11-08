@@ -3,6 +3,7 @@ package bzh.msansm1.medekapi;
 import java.util.List;
 import java.util.Map;
 
+import bzh.msansm1.medekapi.json.JsonSimpleResponse;
 import bzh.msansm1.medekapi.json.album.JsonAlbum;
 import bzh.msansm1.medekapi.json.album.JsonMyAlbum;
 import bzh.msansm1.medekapi.json.album.JsonTrack;
@@ -36,6 +37,9 @@ public interface MedekApiService {
     @GET("services/home/mycollec")
     Call<JsonCollectionStats> myCollection();
 
+    @GET("services/home/allcollec")
+    Call<JsonCollectionStats> allCollection();
+
     @GET("services/albums")
     Call<List<JsonAlbum>> allAlbums(@Query("from") int from, @Query("limit") int limit,
                                     @Query("orderBy") String orderBy, @Query("orderDir") String orderDir);
@@ -49,7 +53,7 @@ public interface MedekApiService {
                                     @Query("userId") int userId);
 
     @POST("services/albums/addtocollec")
-    Call<String> addAlbumToMyCollec(@Body JsonMyAlbum album);
+    Call<JsonSimpleResponse> addAlbumToMyCollec(@Body JsonMyAlbum album);
 
     @GET("services/tracks/album/{albumId}")
     Call<List<JsonTrack>> getAlbumTracks(@Path("albumId") Integer albumId);

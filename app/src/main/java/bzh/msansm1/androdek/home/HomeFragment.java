@@ -32,6 +32,14 @@ public class HomeFragment extends Fragment {
     TextView myMovies;
     @BindView(R.id.myCollecTvshows)
     TextView myTvshows;
+    @BindView(R.id.allCollecAlbums)
+    TextView allAlbums;
+    @BindView(R.id.allCollecBooks)
+    TextView allBooks;
+    @BindView(R.id.allCollecMovies)
+    TextView allMovies;
+    @BindView(R.id.allCollecTvshows)
+    TextView allTvshows;
 
     public HomeFragment() {
     }
@@ -82,6 +90,7 @@ public class HomeFragment extends Fragment {
                         .setAction("Action", null).show();
             }
         });
+        getAllCollecStats();
     }
 
     private void initData(String token) {
@@ -92,6 +101,7 @@ public class HomeFragment extends Fragment {
                 myBooks.setText(stats.getBooks().getNb()+"");
                 myMovies.setText(stats.getMovies().getNb()+"");
                 myTvshows.setText(stats.getSeries().getNb()+"");
+                getAllCollecStats();
             }
 
             @Override
@@ -107,6 +117,24 @@ public class HomeFragment extends Fragment {
                     Snackbar.make(getView(), "Get My Collection Error", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
+            }
+        });
+    }
+
+    private void getAllCollecStats() {
+        MedekApi.getInstance().getAllCollection(new RetrofitManager.MedekCallBack<JsonCollectionStats>() {
+            @Override
+            public void success(JsonCollectionStats jsonCollectionStats) {
+                allAlbums.setText(jsonCollectionStats.getAlbums().getNb()+"");
+                allBooks.setText(jsonCollectionStats.getBooks().getNb()+"");
+                allMovies.setText(jsonCollectionStats.getMovies().getNb()+"");
+                allTvshows.setText(jsonCollectionStats.getSeries().getNb()+"");
+            }
+
+            @Override
+            public void failure(JsonError error) {
+                Snackbar.make(getView(), "Get all Collection Error", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
     }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import bzh.msansm1.androdek.persistence.MedekConfig;
 import bzh.msansm1.medekapi.json.JsonError;
+import bzh.msansm1.medekapi.json.JsonSimpleResponse;
 import bzh.msansm1.medekapi.json.album.JsonAlbum;
 import bzh.msansm1.medekapi.json.album.JsonMyAlbum;
 import bzh.msansm1.medekapi.json.album.JsonTrack;
@@ -65,6 +66,10 @@ public class MedekApi {
         medekService.getMyCollection(token, callback);
     }
 
+    public void getAllCollection(RetrofitManager.MedekCallBack<JsonCollectionStats> callback){
+        medekService.getMyCollection(callback);
+    }
+
     public void getMyCollection(RetrofitManager.MedekCallBack<JsonCollectionStats> callback){
         medekService.getMyCollection(callback);
     }
@@ -83,7 +88,7 @@ public class MedekApi {
         medekService.createUpdateAlbum(album, callback);
     }
 
-    public void addAlbumToMyCollec(JsonMyAlbum album, final RetrofitManager.MedekCallBack<String> callback) {
+    public void addAlbumToMyCollec(JsonMyAlbum album, final RetrofitManager.MedekCallBack<JsonSimpleResponse> callback) {
         medekService.addAlbumToMyCollec(album, callback);
     }
 

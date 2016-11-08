@@ -88,9 +88,11 @@ public class AlbumListFragment extends MediaFragment {
                     new RetrofitManager.MedekCallBack<List<JsonAlbum>>() {
                 @Override
                 public void success(List<JsonAlbum> jsonAlbums) {
-                    if (!jsonAlbums.isEmpty()) {
-                        albumsEmpty.setVisibility(View.GONE);
-                        adapter.updateDataSet(convertToAlbumItems(jsonAlbums, conf));
+                    if (jsonAlbums != null) {
+                        if (!jsonAlbums.isEmpty()) {
+                            albumsEmpty.setVisibility(View.GONE);
+                            adapter.updateDataSet(convertToAlbumItems(jsonAlbums, conf));
+                        }
                     }
                 }
 

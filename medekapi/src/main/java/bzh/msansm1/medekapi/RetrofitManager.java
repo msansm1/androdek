@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 import bzh.msansm1.androdek.persistence.MedekConfig;
 import bzh.msansm1.medekapi.json.JsonError;
+import bzh.msansm1.medekapi.json.JsonSimpleResponse;
 import bzh.msansm1.medekapi.json.album.JsonAlbum;
 import bzh.msansm1.medekapi.json.album.JsonMyAlbum;
 import bzh.msansm1.medekapi.json.album.JsonTrack;
@@ -151,7 +152,29 @@ public class RetrofitManager {
                 } else if (response.code() == 401) {
                     cb.failure(new JsonError("Authentication failed", "Error"));
                 } else {
-                    cb.failure(new JsonError("Get collection failed", "Error"));
+                    cb.failure(new JsonError("Get my collection failed", "Error"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonCollectionStats> call, Throwable t) {
+                cb.failure(new JsonError("Get collection failed", "Error"));
+            }
+        });
+    }
+
+    public void getAllCollection(final MedekCallBack cb){
+        Call<JsonCollectionStats> call = service.myCollection();
+
+        call.enqueue(new Callback<JsonCollectionStats>() {
+            @Override
+            public void onResponse(Call<JsonCollectionStats> call, Response<JsonCollectionStats> response) {
+                if (response.isSuccessful()) {
+                    cb.success(response.body());
+                } else if (response.code() == 401) {
+                    cb.failure(new JsonError("Authentication failed", "Error"));
+                } else {
+                    cb.failure(new JsonError("Get all collection failed", "Error"));
                 }
             }
 
@@ -204,15 +227,15 @@ public class RetrofitManager {
         });
     }
 
-    public void addAlbumToMyCollec(JsonMyAlbum album, final MedekCallBack<String> cb) {
-        service.addAlbumToMyCollec(album).enqueue(new Callback<String>() {
+    public void addAlbumToMyCollec(JsonMyAlbum album, final MedekCallBack<JsonSimpleResponse> cb) {
+        service.addAlbumToMyCollec(album).enqueue(new Callback<JsonSimpleResponse>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<JsonSimpleResponse> call, Response<JsonSimpleResponse> response) {
                 cb.success(response.body());
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<JsonSimpleResponse> call, Throwable t) {
                 cb.failure(new JsonError("Add to my collec failed", "Error"));
             }
         });
