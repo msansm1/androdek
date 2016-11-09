@@ -151,9 +151,9 @@ public class AlbumListFragment extends MediaFragment {
         List<IFlexible> newItems = new ArrayList<>();
         for (JsonAlbum a : jsonAlbums) {
             if (a.getCover().startsWith("https://")) {
-                newItems.add(new AlbumItem(a.getId(), a.getTitle(), a.getArtist(), a.getCover()));
+                newItems.add(new AlbumItem(myList, a.getId(), a.getTitle(), a.getArtist(), a.getMycollec(), a.getCover()));
             } else {
-                newItems.add(new AlbumItem(a.getId(), a.getTitle(), a.getArtist(), conf.getApiUrl() + "medekimg/album/" + a.getId() + "/cover.jpg"));
+                newItems.add(new AlbumItem(myList, a.getId(), a.getTitle(), a.getArtist(), a.getMycollec(), conf.getApiUrl() + "medekimg/album/" + a.getId() + "/cover.jpg"));
             }
         }
         return newItems;

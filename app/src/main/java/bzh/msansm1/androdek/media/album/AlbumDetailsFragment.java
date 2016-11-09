@@ -211,7 +211,7 @@ public class AlbumDetailsFragment extends MediaFragment {
         builder.setMessage("Add to my collection ?")
                 .setTitle("Add to collection / wishlist");
 
-        builder.setPositiveButton("Add to my collection", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.add_to_collec), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 MedekApi.getInstance().addAlbumToMyCollec(myAlbum, new RetrofitManager.MedekCallBack<JsonSimpleResponse>() {
                     @Override

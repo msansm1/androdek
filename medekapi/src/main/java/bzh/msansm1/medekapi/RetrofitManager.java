@@ -164,7 +164,7 @@ public class RetrofitManager {
     }
 
     public void getAllCollection(final MedekCallBack cb){
-        Call<JsonCollectionStats> call = service.myCollection();
+        Call<JsonCollectionStats> call = service.allCollection();
 
         call.enqueue(new Callback<JsonCollectionStats>() {
             @Override

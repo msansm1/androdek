@@ -67,7 +67,7 @@ public class MedekApi {
     }
 
     public void getAllCollection(RetrofitManager.MedekCallBack<JsonCollectionStats> callback){
-        medekService.getMyCollection(callback);
+        medekService.getAllCollection(callback);
     }
 
     public void getMyCollection(RetrofitManager.MedekCallBack<JsonCollectionStats> callback){
