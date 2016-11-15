@@ -37,7 +37,7 @@
 
             <LinearLayout
                 android:id="@+id/album_res_artist_linear"
-                android:layout_height="48dp"
+                android:layout_height="28dp"
                 android:layout_width="match_parent">
 
                 <TextView
@@ -46,27 +46,32 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:textAllCaps="true"/>
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
 
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/album_res_title_linear"
-                android:layout_height="48dp"
-                android:layout_width="match_parent">
+                android:layout_height="24dp"
+                android:layout_width="match_parent"
+                android:layout_gravity="end">
 
                 <TextView
                     android:id="@+id/album_res_title"
                     android:layout_height="match_parent"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:gravity="center_vertical"/>
+                    android:gravity="end"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
 
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/album_res_genre_linear"
-                android:layout_height="48dp"
+                android:layout_height="42dp"
                 android:layout_width="match_parent">
 
                 <TextView
@@ -82,13 +87,14 @@
                     android:layout_height="match_parent"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:gravity="center_vertical"/>
+                    android:gravity="end"
+                    android:textSize="14sp"/>
 
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/album_res_year_linear"
-                android:layout_height="48dp"
+                android:layout_height="42dp"
                 android:layout_width="match_parent">
 
                 <TextView
@@ -104,13 +110,14 @@
                     android:layout_height="match_parent"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:gravity="center_vertical"/>
+                    android:gravity="end"
+                    android:textSize="14sp"/>
 
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/album_res_country_linear"
-                android:layout_height="48dp"
+                android:layout_height="42dp"
                 android:layout_width="match_parent">
 
                 <TextView
@@ -126,19 +133,21 @@
                     android:layout_height="match_parent"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:gravity="center_vertical"/>
+                    android:gravity="end"
+                    android:textSize="14sp"/>
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_height="48dp"
+                android:layout_height="36dp"
                 android:layout_width="match_parent">
 
                 <TextView
                     android:text="@string/album_tracks"
                     android:layout_height="match_parent"
                     android:layout_width="wrap_content"
-                    android:gravity="center_vertical"/>
+                    android:gravity="center_vertical"
+                    android:paddingTop="10dp"/>
 
             </LinearLayout>
 
