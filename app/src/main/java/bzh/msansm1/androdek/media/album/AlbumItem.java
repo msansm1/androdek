@@ -103,7 +103,7 @@ public class AlbumItem extends AbstractFlexibleItem<AlbumItem.AlbumViewHolder> {
         @Override
         public void onClick(View view) {
             super.onClick(view);
-            ((MediaActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.mediaFragment, AlbumDetailsFragment.getFragment(id, true)).commit();
+            ((MediaActivity)mContext).getSupportFragmentManager().beginTransaction().add(R.id.mediaFragment, AlbumDetailsFragment.getFragment(id, true)).addToBackStack("albumdetails").commit();
         }
 
         @Override

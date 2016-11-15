@@ -139,7 +139,7 @@ public class AlbumListFragment extends MediaFragment {
         addAlbum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mActivity.getSupportFragmentManager().beginTransaction().replace(R.id.mediaFragment, AlbumScanFragment.getFragment()).commit();
+                mActivity.getSupportFragmentManager().beginTransaction().add(R.id.mediaFragment, AlbumScanFragment.getFragment()).addToBackStack("albumscan").commit();
             }
         });
 

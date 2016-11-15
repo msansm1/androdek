@@ -173,7 +173,7 @@ public class AlbumScanFragment extends MediaFragment implements ScannerLiveView.
                         mActivity.getRealm().copyToRealm(albumSearch);
                     }
                     mActivity.getRealm().commitTransaction();
-                    mActivity.getSupportFragmentManager().beginTransaction().replace(R.id.mediaFragment, AlbumScanResultFragment.getFragment()).commit();
+                    mActivity.getSupportFragmentManager().beginTransaction().add(R.id.mediaFragment, AlbumScanResultFragment.getFragment()).addToBackStack("albumscanresults").commit();
                 }
 
                 @Override
