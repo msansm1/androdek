@@ -45,6 +45,8 @@ public class AlbumListFragment extends MediaFragment {
     private FlexibleAdapter<IFlexible> adapter;
 
     private Boolean myList = false;
+    private int listIndex = 0;
+    private int pageSize = 50;
 
     public AlbumListFragment() {
     }
@@ -80,11 +82,50 @@ public class AlbumListFragment extends MediaFragment {
         mLayoutManager = new LinearLayoutManager(mActivity);
         albumsList.setLayoutManager(mLayoutManager);
 
+        final List<IFlexible> albumItems = getAlbumItems();
+
+        if (!albumItems.isEmpty()) {
+            albumsEmpty.setVisibility(View.GONE);
+        }
+
+        //Initialize the Adapter
+        adapter = new FlexibleAdapter<>(albumItems);
+
+        adapter.setAnimationOnScrolling(true)
+                .setAnimationOnReverseScrolling(true);
+        adapter.setMode(SelectableAdapter.MODE_SINGLE);
+
+        //Initialize the RecyclerView and attach the Adapter to it as usual
+        albumsList.setAdapter(adapter);
+
+        adapter.setSwipeEnabled(true);
+
+        addAlbum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mActivity.getSupportFragmentManager().beginTransaction().add(R.id.mediaFragment, AlbumScanFragment.getFragment()).addToBackStack("albumscan").commit();
+            }
+        });
+
+        IFlexible loadItem = new AlbumListMoreItem();
+        adapter.setEndlessScrollListener(new FlexibleAdapter.EndlessScrollListener() {
+            @Override
+            public void onLoadMore() {
+                listIndex += pageSize;
+                adapter.addItems(Integer.valueOf(-1).intValue(), getAlbumItems());
+            }
+        }, loadItem);
+
+        return view;
+    }
+
+    @NonNull
+    private List<IFlexible> getAlbumItems() {
         final MedekConfig conf = mActivity.getRealm().where(MedekConfig.class).findFirst();
 
         final List<IFlexible> albumItems = new ArrayList<>();
         if (myList) {
-            MedekApi.getInstance().getUserAlbums(0, 50, "title", "asc", conf.getUserId(),
+            MedekApi.getInstance().getUserAlbums(listIndex, pageSize, "title", "asc", conf.getUserId(),
                     new RetrofitManager.MedekCallBack<List<JsonAlbum>>() {
                 @Override
                 public void success(List<JsonAlbum> jsonAlbums) {
@@ -119,31 +160,7 @@ public class AlbumListFragment extends MediaFragment {
                 }
             });
         }
-
-        if (!albumItems.isEmpty()) {
-            albumsEmpty.setVisibility(View.GONE);
-        }
-
-        //Initialize the Adapter
-        adapter = new FlexibleAdapter<>(albumItems);
-
-        adapter.setAnimationOnScrolling(true)
-                .setAnimationOnReverseScrolling(true);
-        adapter.setMode(SelectableAdapter.MODE_SINGLE);
-
-        //Initialize the RecyclerView and attach the Adapter to it as usual
-        albumsList.setAdapter(adapter);
-
-        adapter.setSwipeEnabled(true);
-
-        addAlbum.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mActivity.getSupportFragmentManager().beginTransaction().add(R.id.mediaFragment, AlbumScanFragment.getFragment()).addToBackStack("albumscan").commit();
-            }
-        });
-
-        return view;
+        return albumItems;
     }
 
     @NonNull
