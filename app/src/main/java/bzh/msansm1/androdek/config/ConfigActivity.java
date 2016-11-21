@@ -58,6 +58,7 @@ public class ConfigActivity extends MedekActivity {
 
         try {
             MedekApi.getInstance().initApi();
+            Toast.makeText(this,"Configuration saved", Toast.LENGTH_SHORT).show();
         }catch (IllegalArgumentException e){
             Toast.makeText(this,"Invalid configuration", Toast.LENGTH_SHORT).show();
         }
