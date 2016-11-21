@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,7 +83,8 @@ public class AlbumListFragment extends MediaFragment {
         mLayoutManager = new LinearLayoutManager(mActivity);
         albumsList.setLayoutManager(mLayoutManager);
 
-        final List<IFlexible> albumItems = getAlbumItems();
+        final List<IFlexible> albumItems = new ArrayList<>();
+        getAlbumItems(albumItems);
 
         if (!albumItems.isEmpty()) {
             albumsEmpty.setVisibility(View.GONE);
@@ -106,13 +108,14 @@ public class AlbumListFragment extends MediaFragment {
                 mActivity.getSupportFragmentManager().beginTransaction().add(R.id.mediaFragment, AlbumScanFragment.getFragment()).addToBackStack("albumscan").commit();
             }
         });
+        Log.i("SIZE : ", albumItems.size()+"  items");
 
         IFlexible loadItem = new AlbumListMoreItem();
         adapter.setEndlessScrollListener(new FlexibleAdapter.EndlessScrollListener() {
             @Override
             public void onLoadMore() {
                 listIndex += pageSize;
-                adapter.addItems(Integer.valueOf(-1).intValue(), getAlbumItems());
+                getAlbumItems(albumItems);
             }
         }, loadItem);
 
@@ -120,10 +123,9 @@ public class AlbumListFragment extends MediaFragment {
     }
 
     @NonNull
-    private List<IFlexible> getAlbumItems() {
+    private void getAlbumItems(final List<IFlexible> albumItems) {
         final MedekConfig conf = mActivity.getRealm().where(MedekConfig.class).findFirst();
 
-        final List<IFlexible> albumItems = new ArrayList<>();
         if (myList) {
             MedekApi.getInstance().getUserAlbums(listIndex, pageSize, "title", "asc", conf.getUserId(),
                     new RetrofitManager.MedekCallBack<List<JsonAlbum>>() {
@@ -132,7 +134,11 @@ public class AlbumListFragment extends MediaFragment {
                     if (jsonAlbums != null) {
                         if (!jsonAlbums.isEmpty()) {
                             albumsEmpty.setVisibility(View.GONE);
-                            adapter.updateDataSet(convertToAlbumItems(jsonAlbums, conf));
+                            List<IFlexible> items = convertToAlbumItems(jsonAlbums, conf);
+                            for (IFlexible a:items) {
+                                albumItems.add(a);
+                            }
+                            adapter.updateDataSet(albumItems, true);
                         }
                     }
                 }
@@ -144,12 +150,16 @@ public class AlbumListFragment extends MediaFragment {
                 }
             });
         } else {
-            MedekApi.getInstance().getAllAlbums(0, 50, "title", "asc", new RetrofitManager.MedekCallBack<List<JsonAlbum>>() {
+            MedekApi.getInstance().getAllAlbums(listIndex, pageSize, "title", "asc", new RetrofitManager.MedekCallBack<List<JsonAlbum>>() {
                 @Override
                 public void success(List<JsonAlbum> jsonAlbums) {
                     if (!jsonAlbums.isEmpty()) {
                         albumsEmpty.setVisibility(View.GONE);
-                        adapter.updateDataSet(convertToAlbumItems(jsonAlbums, conf));
+                        List<IFlexible> items = convertToAlbumItems(jsonAlbums, conf);
+                        for (IFlexible a:items) {
+                            albumItems.add(a);
+                        }
+                        adapter.updateDataSet(albumItems, true);
                     }
                 }
 
@@ -160,7 +170,6 @@ public class AlbumListFragment extends MediaFragment {
                 }
             });
         }
-        return albumItems;
     }
 
     @NonNull

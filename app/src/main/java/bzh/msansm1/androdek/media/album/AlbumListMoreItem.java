@@ -5,6 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
+
 import bzh.msansm1.androdek.R;
 import eu.davidea.flexibleadapter.FlexibleAdapter;
 import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
@@ -23,8 +27,7 @@ public class AlbumListMoreItem extends AbstractFlexibleItem<AlbumListMoreItem.Mo
     @Override
     public boolean equals(Object o) {
         if (o instanceof AlbumListMoreItem) {
-            AlbumListMoreItem inItem = (AlbumListMoreItem) o;
-            return this.equals(inItem);
+            return true;
         }
         return false;
     }
@@ -35,9 +38,14 @@ public class AlbumListMoreItem extends AbstractFlexibleItem<AlbumListMoreItem.Mo
     }
 
     @Override
-    public AlbumListMoreItem.MoreItemViewHolder createViewHolder(FlexibleAdapter adapter, LayoutInflater inflater,
+    public MoreItemViewHolder createViewHolder(FlexibleAdapter adapter, LayoutInflater inflater,
                                                       ViewGroup parent) {
-        return new AlbumListMoreItem.MoreItemViewHolder(inflater.inflate(getLayoutRes(), parent, false), adapter);
+        return new MoreItemViewHolder(inflater.inflate(getLayoutRes(), parent, false), adapter);
+    }
+
+    @Override
+    public void bindViewHolder(FlexibleAdapter adapter, MoreItemViewHolder holder, final int position,
+                               List payloads) {
     }
 
     public class MoreItemViewHolder extends FlexibleViewHolder {
