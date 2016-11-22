@@ -18,6 +18,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import bzh.msansm1.androdek.R;
+import bzh.msansm1.androdek.common.ProgressItem;
 import bzh.msansm1.androdek.media.MediaFragment;
 import bzh.msansm1.androdek.persistence.MedekConfig;
 import bzh.msansm1.medekapi.MedekApi;
@@ -96,7 +97,7 @@ public class AlbumListFragment extends MediaFragment implements FlexibleAdapter.
         albumsList.setAdapter(adapter);
 
         adapter.setSwipeEnabled(true);
-        adapter.setEndlessScrollListener(this, new AlbumListMoreItem());
+        adapter.setEndlessScrollListener(this, new ProgressItem());
         adapter.setEndlessScrollThreshold(1);
 
         addAlbum.setOnClickListener(new View.OnClickListener() {
@@ -184,4 +185,5 @@ public class AlbumListFragment extends MediaFragment implements FlexibleAdapter.
         listIndex += pageSize;
         getAlbumItems(false);
     }
+
 }
