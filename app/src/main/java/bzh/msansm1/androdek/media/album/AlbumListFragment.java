@@ -6,7 +6,6 @@ import android.support.design.widget.Snackbar;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -168,9 +167,17 @@ public class AlbumListFragment extends MediaFragment implements FlexibleAdapter.
         List<IFlexible> newItems = new ArrayList<>();
         for (JsonAlbum a : jsonAlbums) {
             if (a.getCover().startsWith("https://")) {
-                newItems.add(new AlbumItem(myList, a.getId(), a.getTitle(), a.getArtist(), a.getMycollec(), a.getCover()));
+                if (myList) {
+                    newItems.add(new AlbumMyListItem(a.getId(), a.getTitle(), a.getArtist(), a.getCover()));
+                } else {
+                    newItems.add(new AlbumListItem(a.getId(), a.getTitle(), a.getArtist(), a.getCover()));
+                }
             } else {
-                newItems.add(new AlbumItem(myList, a.getId(), a.getTitle(), a.getArtist(), a.getMycollec(), conf.getApiUrl() + "medekimg/album/" + a.getId() + "/cover.jpg"));
+                if (myList) {
+                    newItems.add(new AlbumMyListItem(a.getId(), a.getTitle(), a.getArtist(), conf.getApiUrl() + "medekimg/album/" + a.getId() + "/cover.jpg"));
+                } else {
+                    newItems.add(new AlbumListItem(a.getId(), a.getTitle(), a.getArtist(), conf.getApiUrl() + "medekimg/album/" + a.getId() + "/cover.jpg"));
+                }
             }
         }
         return newItems;

@@ -21,35 +21,31 @@ import bzh.msansm1.androdek.R;
 /**
  * Created by ronan on 03/09/2016.
  */
-public class AlbumItem extends AbstractFlexibleItem<AlbumItem.AlbumViewHolder> {
+public class AlbumListItem extends AbstractFlexibleItem<AlbumListItem.AlbumViewHolder> {
 
     private Integer id;
     private String title;
     private String artist;
     private String coverURL;
-    private Boolean mycollec;
-    private Boolean mycollecList;
 
-    public AlbumItem() {
+    public AlbumListItem() {
         setSwipeable(true);
         setEnabled(true);
     }
 
-    public AlbumItem(Boolean mycollecList, Integer id, String title, String artist, Boolean mycollec, String coverURL) {
+    public AlbumListItem(Integer id, String title, String artist, String coverURL) {
         this.id = id;
         this.title = title;
         this.artist = artist;
         this.coverURL = coverURL;
-        this.mycollec = mycollec;
-        this.mycollecList = mycollecList;
         setSwipeable(true);
         setEnabled(true);
     }
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof AlbumItem) {
-            AlbumItem inItem = (AlbumItem) o;
+        if (o instanceof AlbumListItem) {
+            AlbumListItem inItem = (AlbumListItem) o;
             return this.id.equals(inItem.id);
         }
         return false;
@@ -57,7 +53,7 @@ public class AlbumItem extends AbstractFlexibleItem<AlbumItem.AlbumViewHolder> {
 
     @Override
     public int getLayoutRes() {
-        return R.layout.item_album;
+        return R.layout.item_album_list;
     }
 
     @Override
@@ -74,7 +70,6 @@ public class AlbumItem extends AbstractFlexibleItem<AlbumItem.AlbumViewHolder> {
         if (!coverURL.isEmpty()) {
             Picasso.with(holder.mContext).load(coverURL).into(holder.cover);
         }
-        holder.setRearViews(mycollec, mycollecList);
     }
 
 
@@ -87,7 +82,6 @@ public class AlbumItem extends AbstractFlexibleItem<AlbumItem.AlbumViewHolder> {
         private View frontView;
         private View rearLeftView;
         private View rearRightView;
-        private View localView;
 
         public AlbumViewHolder(View view, FlexibleAdapter adapter) {
             super(view, adapter);
@@ -95,9 +89,9 @@ public class AlbumItem extends AbstractFlexibleItem<AlbumItem.AlbumViewHolder> {
             artist = (TextView) view.findViewById(R.id.item_album_artist);
             cover = (ImageView) view.findViewById(R.id.item_album_cover);
             mContext = view.getContext();
-            this.frontView = view.findViewById(R.id.album_front_view);
-            localView = view;
-            setRearViews(mycollec, mycollecList);
+            this.frontView = view.findViewById(R.id.album_list_front_view);
+            this.rearLeftView = view.findViewById(R.id.album_list_rear_left_view);
+            this.rearRightView = view.findViewById(R.id.album_list_rear_right_view);
         }
 
         @Override
@@ -108,33 +102,17 @@ public class AlbumItem extends AbstractFlexibleItem<AlbumItem.AlbumViewHolder> {
 
         @Override
         public View getFrontView() {
-            return frontView;//default itemView
+            return frontView;
         }
 
         @Override
         public View getRearLeftView() {
-            return rearLeftView;//default null
+            return rearLeftView;
         }
 
         @Override
         public View getRearRightView() {
-            return rearRightView;//default null
-        }
-
-        public void setRearViews(Boolean mycollec, Boolean mycollecList) {
-            Log.i("Position : "+getAdapterPosition(), "my : "+mycollec+" | mylist : "+mycollecList);
-            if (mycollecList) {
-                this.rearLeftView = localView.findViewById(R.id.album_rear_left_view_remove_from_collec);
-                this.rearRightView = localView.findViewById(R.id.album_rear_right_view_remove_from_collec);
-            } else {
-                if (mycollec) {
-                    this.rearLeftView = localView.findViewById(R.id.album_rear_left_view_remove_from_collec);
-                    this.rearRightView = localView.findViewById(R.id.album_rear_right_view_remove_from_collec);
-                } else {
-                    this.rearLeftView = localView.findViewById(R.id.album_rear_left_view_add_to_collec);
-                    this.rearRightView = localView.findViewById(R.id.album_rear_right_view_add_to_collec);
-                }
-            }
+            return rearRightView;
         }
 
     }

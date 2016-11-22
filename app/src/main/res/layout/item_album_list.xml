@@ -5,49 +5,7 @@
     android:layout_height="60dp">
 
     <RelativeLayout
-        android:id="@+id/album_rear_left_view_remove_from_collec"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:background="@color/red"
-        android:gravity="start">
-
-        <TextView
-            android:text="@string/remove_from_collec"
-            android:padding="16dp"
-            android:textColor="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="14sp"
-            android:gravity="start"
-            android:textAllCaps="true"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/album_rear_right_view_remove_from_collec"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:background="@color/red"
-        android:gravity="end">
-
-        <TextView
-            android:text="@string/remove_from_collec"
-            android:padding="16dp"
-            android:textColor="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="14sp"
-            android:gravity="end"
-            android:textAllCaps="true"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/album_rear_left_view_add_to_collec"
+        android:id="@+id/album_list_rear_left_view"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:background="@color/green"
@@ -68,7 +26,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/album_rear_right_view_add_to_collec"
+        android:id="@+id/album_list_rear_right_view"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:background="@color/green"
@@ -89,7 +47,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/album_front_view"
+        android:id="@+id/album_list_front_view"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:background="@android:color/white"
