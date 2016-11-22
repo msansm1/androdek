@@ -31,7 +31,7 @@ import eu.davidea.flexibleadapter.items.IFlexible;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class AlbumListFragment extends MediaFragment {
+public class AlbumListFragment extends MediaFragment implements FlexibleAdapter.EndlessScrollListener  {
 
     @BindView(R.id.add_album)
     FloatingActionButton addAlbum;
@@ -84,11 +84,6 @@ public class AlbumListFragment extends MediaFragment {
         albumsList.setLayoutManager(mLayoutManager);
 
         final List<IFlexible> albumItems = new ArrayList<>();
-        getAlbumItems(albumItems);
-
-        if (!albumItems.isEmpty()) {
-            albumsEmpty.setVisibility(View.GONE);
-        }
 
         //Initialize the Adapter
         adapter = new FlexibleAdapter<>(albumItems);
@@ -101,6 +96,8 @@ public class AlbumListFragment extends MediaFragment {
         albumsList.setAdapter(adapter);
 
         adapter.setSwipeEnabled(true);
+        adapter.setEndlessScrollListener(this, new AlbumListMoreItem());
+        adapter.setEndlessScrollThreshold(1);
 
         addAlbum.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,22 +105,13 @@ public class AlbumListFragment extends MediaFragment {
                 mActivity.getSupportFragmentManager().beginTransaction().add(R.id.mediaFragment, AlbumScanFragment.getFragment()).addToBackStack("albumscan").commit();
             }
         });
-        Log.i("SIZE : ", albumItems.size()+"  items");
-
-        IFlexible loadItem = new AlbumListMoreItem();
-        adapter.setEndlessScrollListener(new FlexibleAdapter.EndlessScrollListener() {
-            @Override
-            public void onLoadMore() {
-                listIndex += pageSize;
-                getAlbumItems(albumItems);
-            }
-        }, loadItem);
+        getAlbumItems(true);
 
         return view;
     }
 
     @NonNull
-    private void getAlbumItems(final List<IFlexible> albumItems) {
+    private void getAlbumItems(final boolean init) {
         final MedekConfig conf = mActivity.getRealm().where(MedekConfig.class).findFirst();
 
         if (myList) {
@@ -135,10 +123,11 @@ public class AlbumListFragment extends MediaFragment {
                         if (!jsonAlbums.isEmpty()) {
                             albumsEmpty.setVisibility(View.GONE);
                             List<IFlexible> items = convertToAlbumItems(jsonAlbums, conf);
-                            for (IFlexible a:items) {
-                                albumItems.add(a);
+                            if (init) {
+                                adapter.updateDataSet(items, true);
+                            } else {
+                                adapter.onLoadMoreComplete(items);
                             }
-                            adapter.updateDataSet(albumItems, true);
                         }
                     }
                 }
@@ -156,10 +145,11 @@ public class AlbumListFragment extends MediaFragment {
                     if (!jsonAlbums.isEmpty()) {
                         albumsEmpty.setVisibility(View.GONE);
                         List<IFlexible> items = convertToAlbumItems(jsonAlbums, conf);
-                        for (IFlexible a:items) {
-                            albumItems.add(a);
+                        if (init) {
+                            adapter.updateDataSet(items, true);
+                        } else {
+                            adapter.onLoadMoreComplete(items);
                         }
-                        adapter.updateDataSet(albumItems, true);
                     }
                 }
 
@@ -187,5 +177,11 @@ public class AlbumListFragment extends MediaFragment {
 
     public Boolean getMyList() {
         return myList;
+    }
+
+    @Override
+    public void onLoadMore() {
+        listIndex += pageSize;
+        getAlbumItems(false);
     }
 }
