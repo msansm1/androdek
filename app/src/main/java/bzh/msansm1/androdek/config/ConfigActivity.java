@@ -63,4 +63,10 @@ public class ConfigActivity extends MedekActivity {
             Toast.makeText(this,"Invalid configuration", Toast.LENGTH_SHORT).show();
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
+    }
 }
