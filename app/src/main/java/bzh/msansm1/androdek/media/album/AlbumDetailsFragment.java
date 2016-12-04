@@ -52,6 +52,12 @@ public class AlbumDetailsFragment extends MediaFragment {
     public static final String ALBUM_ID="albumId";
     public static final String DISCOGS_ID="discogsId";
 
+    @BindView(R.id.album_detail)
+    View albumDetail;
+
+    @BindView(R.id.album_detail_loading)
+    View albumDetailLoading;
+
     @BindView(R.id.album_res_artist)
     TextView artistText;
 
@@ -129,6 +135,8 @@ public class AlbumDetailsFragment extends MediaFragment {
         DiscogsApi.getInstance().getRelease(discogsToken, id, new DiscogsApiRetrofit.DiscogsCallBack<Release>() {
             @Override
             public void success(Release release) {
+                albumDetailLoading.setVisibility(View.GONE);
+                albumDetail.setVisibility(View.VISIBLE);
                 albumRelease = release;
                 artistText.setText(release.getArtists().get(0).getName());
                 titleText.setText(release.getTitle());
@@ -176,11 +184,16 @@ public class AlbumDetailsFragment extends MediaFragment {
         List<JsonTrack> tracks = new ArrayList<>();
         for (Track t : albumRelease.getTracklist()) {
             Integer position = 0;
+            Log.i("position : ", t.getPosition()+"");
             if (t.getPosition().indexOf('-') > 0) {
                 position = Integer.valueOf(t.getPosition().substring(t.getPosition().indexOf('-')+1, t.getPosition().length()));
             } else {
                 if (t.getPosition().indexOf('.') > 0) {
-                    position = Integer.valueOf(t.getPosition().substring(t.getPosition().indexOf('.')+1, t.getPosition().length()));
+                    try {
+                        position = Integer.valueOf(t.getPosition().substring(t.getPosition().indexOf('.')+1, t.getPosition().length()));
+                    } catch (NumberFormatException e) {
+                        position = Integer.valueOf(t.getPosition().substring(0, t.getPosition().indexOf('.')));
+                    }
                 } else {
                     if (isInteger(t.getPosition())) {
                         position = Integer.valueOf(t.getPosition());
