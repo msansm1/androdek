@@ -1,6 +1,8 @@
 package bzh.msansm1.androdek.media.album;
 
+import android.app.FragmentManager;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -23,8 +25,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import bzh.msansm1.androdek.R;
+import bzh.msansm1.androdek.home.HomeActivity;
+import bzh.msansm1.androdek.media.MediaActivity;
 import bzh.msansm1.androdek.media.MediaFragment;
 import bzh.msansm1.androdek.persistence.MedekConfig;
+import bzh.msansm1.androdek.utils.Constants;
 import bzh.msansm1.discogsapi.DiscogsApi;
 import bzh.msansm1.discogsapi.DiscogsApiRetrofit;
 import bzh.msansm1.discogsapi.json.DiscogsError;
@@ -247,6 +252,17 @@ public class AlbumDetailsFragment extends MediaFragment {
 
         AlertDialog dialog = builder.create();
         dialog.setCanceledOnTouchOutside(false);
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                Intent intent = new Intent(mActivity, MediaActivity.class);
+                Bundle b = new Bundle();
+                b.putString(Constants.KEY_MEDIA, Constants.MEDIA_ALBUM);
+                intent.putExtras(b);
+                startActivity(intent);
+                mActivity.finish();
+            }
+        });
         dialog.show();
     }
 
