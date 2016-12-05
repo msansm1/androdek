@@ -91,5 +91,6 @@ public class AlbumScanResultFragment  extends MediaFragment {
 
         return view;
     }
+
 }
 

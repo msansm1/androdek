@@ -12,6 +12,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import bzh.msansm1.androdek.R;
 import bzh.msansm1.androdek.media.album.AlbumListFragment;
+import bzh.msansm1.androdek.media.album.AlbumScanResultFragment;
 import bzh.msansm1.androdek.media.book.BookFragment;
 import bzh.msansm1.androdek.media.movie.MovieFragment;
 import bzh.msansm1.androdek.media.tvshow.TvshowFragment;
@@ -65,6 +66,20 @@ public class MediaActivity extends MedekActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().findFragmentById(R.id.mediaFragment) instanceof AlbumScanResultFragment) {
+            Intent intent = new Intent(MediaActivity.this, MediaActivity.class);
+            Bundle b = new Bundle();
+            b.putString(Constants.KEY_MEDIA, Constants.MEDIA_ALBUM);
+            intent.putExtras(b);
+            startActivity(intent);
+            finish();
+        }else {
+            super.onBackPressed();
         }
     }
 
