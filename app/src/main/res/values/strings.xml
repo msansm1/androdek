@@ -50,6 +50,7 @@
     <string name="album_add">Add this album</string>
     <string name="album_more">Load more albums</string>
     <string name="album_detail_loading">Album details loading</string>
+    <string name="loading_albums">Loading albums list</string>
 
     <string name="title_activity_book">BookActivity</string>
     <string name="no_books">No books</string>

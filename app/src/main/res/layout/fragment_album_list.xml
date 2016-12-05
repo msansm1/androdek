@@ -7,12 +7,23 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/albumsLoading"
+        android:text="@string/loading_albums"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp"
+        android:gravity="center"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:id="@+id/albumsEmpty"
         android:text="@string/no_albums"
         android:textAllCaps="true"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:visibility="gone"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/albumsList"

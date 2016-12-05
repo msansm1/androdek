@@ -39,6 +39,9 @@ public class AlbumListFragment extends MediaFragment implements FlexibleAdapter.
     @BindView(R.id.albumsList)
     RecyclerView albumsList;
 
+    @BindView(R.id.albumsLoading)
+    TextView albumsLoading;
+
     @BindView(R.id.albumsEmpty)
     TextView albumsEmpty;
 
@@ -121,12 +124,16 @@ public class AlbumListFragment extends MediaFragment implements FlexibleAdapter.
                 public void success(List<JsonAlbum> jsonAlbums) {
                     if (jsonAlbums != null) {
                         if (!jsonAlbums.isEmpty()) {
-                            albumsEmpty.setVisibility(View.GONE);
+                            albumsLoading.setVisibility(View.GONE);
                             List<IFlexible> items = convertToAlbumItems(jsonAlbums, conf);
                             if (init) {
                                 adapter.updateDataSet(items, true);
                             } else {
                                 adapter.onLoadMoreComplete(items);
+                            }
+                        } else {
+                            if (adapter.getItemCount() == 0) {
+                                albumsEmpty.setVisibility(View.VISIBLE);
                             }
                         }
                     }
@@ -143,12 +150,16 @@ public class AlbumListFragment extends MediaFragment implements FlexibleAdapter.
                 @Override
                 public void success(List<JsonAlbum> jsonAlbums) {
                     if (!jsonAlbums.isEmpty()) {
-                        albumsEmpty.setVisibility(View.GONE);
+                        albumsLoading.setVisibility(View.GONE);
                         List<IFlexible> items = convertToAlbumItems(jsonAlbums, conf);
                         if (init) {
                             adapter.updateDataSet(items, true);
                         } else {
                             adapter.onLoadMoreComplete(items);
+                        }
+                    } else {
+                        if (adapter.getItemCount() == 0) {
+                            albumsEmpty.setVisibility(View.VISIBLE);
                         }
                     }
                 }
