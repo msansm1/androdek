@@ -72,6 +72,10 @@ public class AlbumListItem extends AbstractFlexibleItem<AlbumListItem.AlbumViewH
         }
     }
 
+    public Integer getId() {
+        return id;
+    }
+
 
     public class AlbumViewHolder extends FlexibleViewHolder {
 

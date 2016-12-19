@@ -23,7 +23,9 @@ import bzh.msansm1.androdek.persistence.MedekConfig;
 import bzh.msansm1.medekapi.MedekApi;
 import bzh.msansm1.medekapi.RetrofitManager;
 import bzh.msansm1.medekapi.json.JsonError;
+import bzh.msansm1.medekapi.json.JsonSimpleResponse;
 import bzh.msansm1.medekapi.json.album.JsonAlbum;
+import bzh.msansm1.medekapi.json.album.JsonMyAlbum;
 import eu.davidea.flexibleadapter.FlexibleAdapter;
 import eu.davidea.flexibleadapter.SelectableAdapter;
 import eu.davidea.flexibleadapter.items.IFlexible;
@@ -202,6 +204,60 @@ public class AlbumListFragment extends MediaFragment implements FlexibleAdapter.
     public void onLoadMore() {
         listIndex += pageSize;
         getAlbumItems(false);
+    }
+
+    public class SwipeListener implements FlexibleAdapter.OnItemSwipeListener {
+
+        @Override
+        public void onItemSwipe(final int position, int direction) {
+            if (myList) {
+                final AlbumMyListItem item = (AlbumMyListItem) adapter.getItem(position);
+            //    final ReportModel model = reports.get(position).clone();
+            /*    Snackbar sb = Snackbar.make(getView(), getContext().getString(R.string.deleted_coupon), Snackbar.LENGTH_LONG)
+                        .setAction(getContext().getString(R.string.cancel), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                adapter.addItem(position, item);
+                                mActivity.getRealm().beginTransaction();
+                                mActivity.getRealm().copyToRealmOrUpdate(model);
+                                mActivity.getRealm().commitTransaction();
+                            }
+                        });
+                sb.setActionTextColor(getContext().getResources().getColor(R.color.colorPrimary));
+                View sbView = sb.getView();
+                sbView.setBackgroundColor(getContext().getResources().getColor(R.color.colorPrimaryDark));
+                TextView textView = (TextView) sbView.findViewById(R.id.snackbar_text);
+                textView.setTextColor(getContext().getResources().getColor(R.color.white));
+                sb.show(); */
+                adapter.removeItem(position);
+            } else {
+                final AlbumListItem item = (AlbumListItem) adapter.getItem(position);
+                MedekApi.getInstance().addAlbumToMyCollec(new JsonMyAlbum(item.getId(),
+                                mActivity.getRealm().where(MedekConfig.class).findFirst().getUserId(), 1, "", false),
+                        new RetrofitManager.MedekCallBack<JsonSimpleResponse>() {
+                    @Override
+                    public void success(JsonSimpleResponse s) {
+                        if (s.getOk().equals("true")) {
+                            Snackbar.make(getView(), "Added to my collection", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                        } else {
+                            Snackbar.make(getView(), "Add to collection failed", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                        }
+                    }
+
+                    @Override
+                    public void failure(JsonError error) {
+                        Snackbar.make(getView(), "Add to collection failed", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                });
+            }
+        }
+
+        @Override
+        public void onActionStateChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
+        }
     }
 
 }
