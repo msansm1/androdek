@@ -103,6 +103,7 @@ public class AlbumListFragment extends MediaFragment implements FlexibleAdapter.
         adapter.setSwipeEnabled(true);
         adapter.setEndlessScrollListener(this, new ProgressItem());
         adapter.setEndlessScrollThreshold(1);
+        adapter.initializeListeners(new SwipeListener());
 
         addAlbum.setOnClickListener(new View.OnClickListener() {
             @Override
