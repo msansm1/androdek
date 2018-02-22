@@ -28,55 +28,55 @@ import retrofit2.http.Query;
  */
 public interface MedekApiService {
 
-    @POST("services/auth/login/mobile")
+    @POST("api/v1/auth/login/mobile")
     Call<JsonAuth> login(@Body JsonLogin request);
 
-    @POST("services/auth/logout/mobile")
+    @POST("api/v1/auth/logout/mobile")
     Call<String> logout(@Body JsonAuth request);
 
-    @GET("services/home/mycollec")
+    @GET("api/v1/home/mycollec")
     Call<JsonCollectionStats> myCollection();
 
-    @GET("services/home/allcollec")
+    @GET("api/v1/home/allcollec")
     Call<JsonCollectionStats> allCollection();
 
-    @GET("services/albums")
+    @GET("api/v1/albums")
     Call<List<JsonAlbum>> allAlbums(@Query("from") int from, @Query("limit") int limit,
                                     @Query("orderBy") String orderBy, @Query("orderDir") String orderDir);
 
-    @POST("services/albums")
+    @POST("api/v1/albums")
     Call<JsonAlbum> createUpdateAlbum(@Body JsonAlbum album);
 
-    @GET("services/albums/user")
+    @GET("api/v1/albums/user")
     Call<List<JsonAlbum>> userAlbums(@Query("from") int from, @Query("limit") int limit,
                                     @Query("orderBy") String orderBy, @Query("orderDir") String orderDir,
                                     @Query("userId") int userId);
 
-    @POST("services/albums/addtocollec")
+    @POST("api/v1/albums/addtocollec")
     Call<JsonSimpleResponse> addAlbumToMyCollec(@Body JsonMyAlbum album);
 
-    @GET("services/tracks/album/{albumId}")
+    @GET("api/v1/tracks/album/{albumId}")
     Call<List<JsonTrack>> getAlbumTracks(@Path("albumId") Integer albumId);
 
-    @POST("services/tracks")
+    @POST("api/v1/tracks")
     Call<JsonTrack> createUpdateTrack(JsonTrack track);
 
-    @GET("services/books")
+    @GET("api/v1/books")
     Call<List<JsonBook>> allBooks(@Query("from") int from, @Query("limit") int limit,
                             @Query("orderBy") String orderBy, @Query("orderDir") String orderDir);
 
-    @GET("services/movies")
+    @GET("api/v1/movies")
     Call<List<JsonMovie>> allMovies(@Query("from") int from, @Query("limit") int limit,
                               @Query("orderBy") String orderBy, @Query("orderDir") String orderDir);
 
-    @GET("services/tvshows")
+    @GET("api/v1/tvshows")
     Call<List<JsonShow>> allTvshows(@Query("from") int from, @Query("limit") int limit,
                               @Query("orderBy") String orderBy, @Query("orderDir") String orderDir);
 
-    @GET("services/artists")
+    @GET("api/v1/artists")
     Call<List<JsonArtist>> allArtists();
 
-    @POST("services/artists")
+    @POST("api/v1/artists")
     Call<JsonArtist> createUpdateArtist(@Body JsonArtist artist);
 
 }

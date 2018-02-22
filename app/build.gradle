@@ -1,15 +1,14 @@
 apply plugin: 'com.android.application'
-apply plugin: 'android-apt'
 apply plugin: 'realm-android'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "24.0.1"
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         applicationId "bzh.msansm1.androdek"
         minSdkVersion 21
-        targetSdkVersion 23
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
     }
@@ -32,14 +31,14 @@ dependencies {
     compile project(':medekapi')
     compile project(':discogsapi')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support:design:23.4.0'
-    compile "com.android.support:support-v13:23.4.0"
-    compile "com.android.support:support-v4:23.4.0"
-    compile "com.android.support:recyclerview-v7:23.4.0"
+    compile 'com.android.support:appcompat-v7:26.1.0'
+    compile 'com.android.support:design:26.1.0'
+    compile "com.android.support:support-v13:26.1.0"
+    compile "com.android.support:support-v4:26.1.0"
+    compile "com.android.support:recyclerview-v7:26.1.0"
 
-    compile 'com.jakewharton:butterknife:8.2.1'
-    apt 'com.jakewharton:butterknife-compiler:8.2.1'
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.joanzapata.iconify:android-iconify-material:2.2.2'
     compile 'eu.davidea:flexible-adapter:5.0.0-b7'

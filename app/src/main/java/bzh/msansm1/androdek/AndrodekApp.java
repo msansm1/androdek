@@ -23,7 +23,9 @@ public class AndrodekApp extends Application {
 
         String pass = new String("Medek@Android");
 
-        RealmConfiguration config = new RealmConfiguration.Builder(this)
+        Realm.init(this);
+
+        RealmConfiguration config = new RealmConfiguration.Builder()
                 .name("MEDEK")
                 .schemaVersion(1)
                 .deleteRealmIfMigrationNeeded()
